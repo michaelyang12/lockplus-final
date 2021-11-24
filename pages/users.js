@@ -44,7 +44,6 @@ export async function getServerSideProps(context) {
   var users = [];
   let images = [];
   await axios
-  //https://lockplus.tk
     .post('https://lockplus.tk/api/getusers', {
       email: param,
     })
