@@ -14,7 +14,7 @@ function UploadedUserImages(props) {
   function deleteImg(e) {
     e.preventDefault();
     axios
-      .post('https://lockplus.tk/api/deletephoto', {
+      .post('/api/deletephoto', {
         email: email,
         image: image,
       })
