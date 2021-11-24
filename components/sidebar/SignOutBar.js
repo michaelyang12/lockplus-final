@@ -1,7 +1,7 @@
 import { signOut } from 'next-auth/react';
 
 function SignOutBar() {
-  const url = 'https://lockplus-deployed.vercel.app/';
+  const url = 'https://lockplus.tk/';
   return (
     <button
       class="relative text-white flex items-center mt-48 space-x-2 px-4 ml-1 hover:text-lockplus-hoverGray"

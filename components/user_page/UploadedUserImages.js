@@ -14,7 +14,7 @@ function UploadedUserImages(props) {
   function deleteImg(e) {
     e.preventDefault();
     axios
-      .post('https://lockplus-deployed.vercel.app/api/deletephoto', {
+      .post('https://lockplus.tk/api/deletephoto', {
         email: email,
         image: image,
       })

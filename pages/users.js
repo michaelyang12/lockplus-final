@@ -44,7 +44,7 @@ export async function getServerSideProps(context) {
   var users = [];
   let images = [];
   await axios
-  //https://lockplus-deployed.vercel.app
+  //https://lockplus.tk
     .post('/api/getusers', {
       email: param,
     })
