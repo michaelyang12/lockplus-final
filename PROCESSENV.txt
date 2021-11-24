@@ -1,0 +1,4 @@
+set up a file called .env.local and place this into it:
+
+message me for the environment variable file so sendgrid can stop screwing us over
+4084443373
