@@ -12,9 +12,9 @@ export default function RegisterForm() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('click');
-    const url = 'http://localhost:3000/home';
+    const url = 'https://lockplus-deployed-49qnphsov-michaelyang12.vercel.app/home';
     axios
-      .post('http://localhost:3000/api/registerlock', {
+      .post('https://lockplus-deployed-49qnphsov-michaelyang12.vercel.app/api/registerlock', {
         lockCode: lockCode,
         email: email,
         name: name,

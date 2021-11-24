@@ -10,7 +10,7 @@ export default function LoginForm() {
   //const falseVar = false;
   function handleSubmit(e) {
     e.preventDefault();
-    const url = 'http://localhost:3000/home';
+    const url = 'https://lockplus-deployed-49qnphsov-michaelyang12.vercel.app/home';
     axios
       .post('/api/signinlock', {
         email: email,
