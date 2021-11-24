@@ -58,7 +58,7 @@ export default async (req, res) => {
   console.log('param' + param);
   var users = [];
   await axios
-    .post('https://lockplus-deployed-49qnphsov-michaelyang12.vercel.app/api/getusers', { email: param })
+    .post('https://lockplus-deployed.vercel.app/api/getusers', { email: param })
     .catch((err) => {
       console.log('err getusers from client');
       console.log(err.message);

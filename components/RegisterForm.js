@@ -12,9 +12,9 @@ export default function RegisterForm() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('click');
-    const url = 'https://lockplus-deployed-49qnphsov-michaelyang12.vercel.app/home';
+    const url = 'https://lockplus-deployed.vercel.app/home';
     axios
-      .post('https://lockplus-deployed-49qnphsov-michaelyang12.vercel.app/api/registerlock', {
+      .post('https://lockplus-deployed.vercel.app/api/registerlock', {
         lockCode: lockCode,
         email: email,
         name: name,
