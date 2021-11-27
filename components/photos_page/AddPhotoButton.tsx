@@ -47,7 +47,7 @@ export const AddPhotoButton: React.FC<IProps> = (props) => {
 
     const formData = new FormData();
 
-    Array.from(event.target.files).forEach((file) => {
+    Array.from(event.target.files).forEach((file: any) => {
       formData.append(event.target.name, file);
     });
 
@@ -61,8 +61,7 @@ export const AddPhotoButton: React.FC<IProps> = (props) => {
       <button
         className="absolute left-4 top-4 h-8 w-28 text-gray-700 bg-blue-400 focus:outline-none rounded-md transform hover:bg-blue-500 text-sm font-lockplus"
         type="button"
-        onClick={onClickHandler}
-      >
+        onClick={onClickHandler}>
         {props.label}
       </button>
       <input
