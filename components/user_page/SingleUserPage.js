@@ -43,12 +43,12 @@ function SingleUserPage(props) {
       <div className="-mt-12 flex flex-wrap w-2/3 h-auto overflow-auto border-4 border-black">
         {displayImages.map((image) => (
           <div className="w-96 min-h-0 max-h-72 object-fill mx-2 mt-2 border-black border-4">
-            <UploadedUserImages
+            {/* <UploadedUserImages
               user={props.user}
               isUserSelected={isUserSelected}
               image={image}
               email={email}
-            />
+            /> */}
           </div>
         ))}
       </div>
