@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import HomeForm from '../components/HomeForm';
 
-export default function HomePage() {
+export default function HomePage(props) {
   const router = useRouter();
   //const { data: session, status } = useSession();
   //const loading = status === 'loading';
