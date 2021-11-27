@@ -7,10 +7,12 @@ function UploadedUserImages(props) {
   const email = props.email;
   console.log(image);
   const [bufferConv, setBufferConv] = useState('');
-  if (bufferConv === '') {
+  /*if (bufferConv === '') {
     setBufferConv(btoa(String.fromCharCode.apply(null, image.img.data.data)));
-  }
-  var dataimg = `data:${image.img.contentType};base64,` + bufferConv;
+  }*/
+  var dataimg =
+    `data:${image.img.contentType};base64,` +
+    Buffer.from(String.fromCharCode.apply(null, image.img.data.data));
   function deleteImg(e) {
     e.preventDefault();
     axios
