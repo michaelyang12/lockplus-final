@@ -1,5 +1,6 @@
 import SettingsIcon from "../assets/icons/SettingsIcon";
 import { useRouter } from 'next/router';
+import Link from "next/dist/client/link";
 
 function SettingsBar(props) {
         // const {
@@ -20,16 +21,16 @@ function SettingsBar(props) {
         ? "font-bold"
         : "font-regular"
         return (
-            <a 
-             href="#" 
-             class={`text-white ${selectedDisplay} flex items-center space-x-2 px-4 ml-1 hover:text-lockplus-hoverGray`}
-             onClick = {() => router.push('/settings')}
-            >
-                <SettingsIcon/>
-                <span class="text-md font-md font-lockplus">
-                    settings
-                </span>
-            </a>
+            <Link href='/settings'>
+                <a 
+                class={`text-white ${selectedDisplay} flex items-center space-x-2 px-4 ml-1 hover:text-lockplus-hoverGray`}
+                >
+                    <SettingsIcon/>
+                    <span class="text-md font-md font-lockplus">
+                        settings
+                    </span>
+                </a>
+            </Link>
         );
 }
 
