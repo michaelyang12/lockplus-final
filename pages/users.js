@@ -11,6 +11,8 @@ function UsersPage(props) {
   const email = props.sessionEmail;
   const images = props.userImages;
   console.log(usersList);
+  console.log('help');
+  console.log(images[0]);
   //AMPLIFY edit this for redeplo
   return (
     <>
@@ -57,6 +59,7 @@ export async function getServerSideProps(context) {
         images = response.data.images;
         console.log('success');
         console.log(users);
+        console.log(images);
       }
     });
   return {
