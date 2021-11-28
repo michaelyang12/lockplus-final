@@ -56,7 +56,7 @@ function UploadedUserImages(props) {
   function deleteImg(e) {
     e.preventDefault();
     console.log('delete image call');
-    axios
+    const res = axios
       .post('/api/deletephoto', {
         email: email,
         filename: image.filename,

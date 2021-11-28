@@ -45,11 +45,11 @@ function SingleUserPage(props) {
           </p>
         </div>
       </div>
-      <div className="-mt-24 rounded-lg flex flex-wrap w-2/3 h-56 overflow-auto bg-lockplus-historyBlue">
-        <div class={`${visibility} absolute text-2xl font-regular left-80 mt-20 font-lockplus text-gray-700`}>
+      <div className="-mt-24 rounded-lg flex flex-wrap w-4/5 h-56 overflow-auto bg-lockplus-historyBlue">
+        <div class={`${visibility} absolute text-2xl font-regular left-96 mt-20 font-lockplus text-gray-700`}>
           No Photos Found
         </div>
-        <div class={`${visibility} absolute text-lg font-regular left-56 mt-28 font-lockplus text-gray-700`}>
+        <div class={`${visibility} absolute text-lg font-regular left-72 mt-28 font-lockplus text-gray-700`}>
           Try uploading a photo using the prompt below
         </div>
         {displayImages.map((image) => (
