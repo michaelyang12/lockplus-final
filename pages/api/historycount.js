@@ -18,7 +18,7 @@ export default async (req, res) => {
       const lock = await Lock.findOne(data);
       console.log('lock');
       console.log(lock);
-      const hCount = lock.history.length;
+      const hCount = lock.history.length - 1;
       res.status(201).json({
         success: true,
         message: 'lock updated',

@@ -15,26 +15,28 @@ function SingleHistoryImage(props) {
   const [username, setUsername] = useState('');
   useEffect(() => {
     console.log('is this even working? history addition');
-    const response = axios
+    axios
       .post(`/api/singlehistory/${props.index}`, {
         email: email,
       })
       .catch((err) => console.log(err))
       .then((response) => {
         console.log('response');
-        console.log(response.data);
-        //normally will be response.data.cType
-        setSource(
-          `data:image/jpeg;base64,${Buffer.from(response.data.buffer).toString(
-            'base64'
-          )}`
-        );
-        const displayTime = convertTime(response.data.timestamp);
-        console.log(displayTime);
-        setTimestamp(displayTime);
-        setUsername(response.data.username);
-        setAccepted(response.data.accepted);
-        setApiDone(true);
+        if (response) {
+          console.log(response.data);
+          //normally will be response.data.cType
+          setSource(
+            `data:image/jpeg;base64,${Buffer.from(
+              response.data.buffer
+            ).toString('base64')}`
+          );
+          const displayTime = convertTime(response.data.timestamp);
+          console.log(displayTime);
+          setTimestamp(displayTime);
+          setUsername(response.data.username);
+          setAccepted(response.data.accepted);
+          setApiDone(true);
+        }
       });
   }, []);
   return (

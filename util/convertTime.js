@@ -1,8 +1,8 @@
-function convertTime(preTime) {
-  const isoTime = preTime.split(' ');
+function convertTime(pretime) {
+  const isoTime = pretime.split(' ');
   const tempTime = isoTime[1].split('.');
   const oneMore = tempTime[0];
-  time = oneMore.split(':'); // convert to array
+  const time = oneMore.split(':'); // convert to array
 
   // fetch
   var hours = Number(time[0]);
