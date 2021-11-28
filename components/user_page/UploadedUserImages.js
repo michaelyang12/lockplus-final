@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
-import DeleteIcon from '../assets/icons/DeleteIcon';
-import Link from 'next/dist/client/link';
 import { useRouter } from 'next/router';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
