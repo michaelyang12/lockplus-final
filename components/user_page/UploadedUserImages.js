@@ -21,7 +21,7 @@ function UploadedUserImages(props) {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   
-  function refreshData() {
+  const refreshData = () => {
     router.replace('/users');
     setIsRefreshing(true);
   };
@@ -56,7 +56,7 @@ function UploadedUserImages(props) {
   function deleteImg(e) {
     e.preventDefault();
     console.log('delete image call');
-    const res = axios
+    axios
       .post('/api/deletephoto', {
         email: email,
         filename: image.filename,
