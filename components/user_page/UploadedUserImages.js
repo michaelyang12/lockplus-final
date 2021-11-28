@@ -4,8 +4,8 @@ import Image from 'next/image';
 import DeleteIcon from '../assets/icons/DeleteIcon';
 import Link from 'next/dist/client/link';
 import { useRouter } from 'next/router';
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from 'react-loader-spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 function UploadedUserImages(props) {
   const router = useRouter();
@@ -20,19 +20,17 @@ function UploadedUserImages(props) {
   console.log(image);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
-  
+
   function refreshData() {
     router.replace('/users');
     setIsRefreshing(true);
-  };
+  }
 
   useEffect(() => {
     setIsRefreshing(false);
   }, [props]);
 
-  var visibility = isRefreshing
-    ? "visible"
-    : "invisible"
+  var visibility = isRefreshing ? 'visible' : 'invisible';
 
   useEffect(() => {
     console.log('is this even working?');
@@ -52,7 +50,7 @@ function UploadedUserImages(props) {
         setApiDone(true);
       });
   }, []);
-  
+
   function deleteImg(e) {
     e.preventDefault();
     console.log('delete image call');
@@ -72,22 +70,24 @@ function UploadedUserImages(props) {
     <>
       {apiDone ? (
         <div className="h-full w-full relative">
-          <div className="h-full w-full object-contain">
+          <div className="h-full w-full">
             <Image
               src={source}
               alt="something went wrong"
+              className="object-cover"
               width={190}
               height={190}
             />
-            <div class={`${visibility} absolute -top-0 h-48 w-48 opacity-80 bg-gray-800 font-md text-white font-regular font-lockplus`}>
-              <div class='mt-12 ml-14'>
+            <div
+              class={`${visibility} absolute -top-0 h-48 w-48 opacity-80 bg-gray-800 font-md text-white font-regular font-lockplus`}>
+              <div class="mt-12 ml-14">
                 Deleting...
                 <Loader
                   type="TailSpin"
                   color="#FFFFFF"
                   height={70}
                   width={70}
-                  visible={isRefreshing} 
+                  visible={isRefreshing}
                 />
               </div>
             </div>
@@ -100,20 +100,20 @@ function UploadedUserImages(props) {
         </div>
       ) : (
         <div className="h-full w-full relative">
-            <div class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
-              <div class='mt-12 ml-14'>
-                Loading...
-                <Loader
-                  type="TailSpin"
-                  color="#FFFFFF"
-                  height={70}
-                  width={70}
-                  visible={true} 
-                />
-              </div>
+          <div
+            class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
+            <div class="mt-12 ml-14">
+              Loading...
+              <Loader
+                type="TailSpin"
+                color="#FFFFFF"
+                height={70}
+                width={70}
+                visible={true}
+              />
             </div>
+          </div>
         </div>
-        
       )}
     </>
   );
