@@ -27,6 +27,12 @@ function SingleUserPage(props) {
   //   setIsUserSelected(false)
   // }
 
+  var visibility = displayImages.length > 0
+    ? "invisible"
+    : "visible"
+
+  var photoCount = displayImages.length
+
   return (
     <div className="relative h-full w-full bg-blue-100 container p-4">
       <div className="block w-auto h-48 m-4">
@@ -34,15 +40,20 @@ function SingleUserPage(props) {
           <div className="text-2xl font-bold font-lockplus text-left pr-4 text-gray-700">
             User: <span class="ml-1 text-gray-600 inline-flex"> {header} </span>
           </div>
-          <UploadPhotoPrompt
-            user={props.user}
-            isUserSelected={isUserSelected}
-          />
+          <p className="relative mt-12 mb-2 text-md font-regular font-lockplus text-left text-gray-700"> 
+          {photoCount} photos uploaded: 
+          </p>
         </div>
       </div>
-      <div className="-mt-12 flex flex-wrap w-2/3 h-96 overflow-auto border-4 border-black">
+      <div className="-mt-24 rounded-lg flex flex-wrap w-2/3 h-56 overflow-auto bg-lockplus-historyBlue">
+        <div class={`${visibility} absolute text-2xl font-regular left-80 mt-20 font-lockplus text-gray-700`}>
+          No Photos Found
+        </div>
+        <div class={`${visibility} absolute text-lg font-regular left-56 mt-28 font-lockplus text-gray-700`}>
+          Try uploading a photo using the prompt below
+        </div>
         {displayImages.map((image) => (
-          <div className="w-96 h-72 object-fill mx-2 mt-2 border-black border-4">
+          <div className="w-56 h-52 object-fill mx-2 mt-2">
             {
               <UploadedUserImages
                 user={props.user}
@@ -53,6 +64,12 @@ function SingleUserPage(props) {
             }
           </div>
         ))}
+      </div>
+      <div class="-mt-10 ml-4">
+        <UploadPhotoPrompt
+          user={props.user}
+          isUserSelected={isUserSelected}
+        />
       </div>
     </div>
   );
