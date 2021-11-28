@@ -56,7 +56,7 @@ function UploadedUserImages(props) {
   function deleteImg(e) {
     e.preventDefault();
     console.log('delete image call');
-    const res = axios
+    axios
       .post('/api/deletephoto', {
         email: email,
         filename: image.filename,
@@ -64,10 +64,8 @@ function UploadedUserImages(props) {
       .catch((err) => console.log(err))
       .then((response) => {
         console.log(response);
+        refreshData();
       });
-    if (res.status < 300) {
-      refreshData();
-    }
   }
 
   return (
@@ -101,7 +99,21 @@ function UploadedUserImages(props) {
           </button>
         </div>
       ) : (
-        <div className="h-full w-full relative border-blue"></div>
+        <div className="h-full w-full relative">
+            <div class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
+              <div class='mt-12 ml-14'>
+                Loading...
+                <Loader
+                  type="TailSpin"
+                  color="#FFFFFF"
+                  height={70}
+                  width={70}
+                  visible={true} 
+                />
+              </div>
+            </div>
+        </div>
+        
       )}
     </>
   );
