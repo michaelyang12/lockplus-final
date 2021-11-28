@@ -4,6 +4,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import React from 'react';
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 function DeleteUserButton(props) {
   const router = useRouter();
@@ -14,6 +17,21 @@ function DeleteUserButton(props) {
   if (session && sessionEmail === 'null') {
     setSessionEmail(session.user.email);
   }
+  
+  const [isRefreshing, setIsRefreshing] = React.useState(false);
+  
+  function refreshData() {
+    router.replace('/users');
+    setIsRefreshing(true);
+  };
+
+  React.useEffect(() => {
+    setIsRefreshing(false);
+  }, [props]);
+  
+  var loadVisibility = isRefreshing
+    ? "visible"
+    : "invisible"
 
   const click = () => {
     const index = props.userList.indexOf(user);
