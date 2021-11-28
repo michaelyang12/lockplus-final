@@ -19,10 +19,10 @@ function UploadedUserImages(props) {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  function refreshData() {
+  const refreshData = () => {
     router.replace('/users');
     setIsRefreshing(true);
-  }
+  };
 
   useEffect(() => {
     setIsRefreshing(false);
