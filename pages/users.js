@@ -13,7 +13,7 @@ function UsersPage(props) {
   console.log(usersList);
   console.log('help');
   console.log(images[0]);
-  //AMPLIFY edit this for redeplo
+
   return (
     <>
       <div class="h-screen w-screen bg-lockplus-opacGray overscroll-contain overflow-hidden">
@@ -46,7 +46,7 @@ export async function getServerSideProps(context) {
   var users = [];
   let images = [];
   await axios
-    .post('https://lockplus.tk/api/getusers', {
+    .post('http://localhost:3000/api/getusers', {
       email: param,
     })
     .catch((err) => {

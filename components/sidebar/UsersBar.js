@@ -17,7 +17,9 @@ function UsersBar(props) {
   return (
     <Link href='/users'>
       <a
+        // href='#'
         class={`text-white ${selectedDisplay} flex items-center space-x-2 px-4 ml-1 hover:text-lockplus-hoverGray`}
+        // onClick = {() => router.push('/users')}
       >
         <UsersIcon />
         <span class="text-md font-md font-lockplus">users</span>
