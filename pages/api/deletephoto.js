@@ -10,7 +10,7 @@ export default async (req, res) => {
   if (method === 'POST') {
     try {
       const AE = req.body.email;
-      const image = req.body.image;
+      const filename = req.body.filename;
       const data = {
         account_email: AE,
       };
@@ -20,7 +20,9 @@ export default async (req, res) => {
       console.log('lock');
       console.log(lockToModify);
       if (lockToModify) {
-        const deleteIndex = lockToModify.images.indexOf(image);
+        const deleteIndex = lockToModify.images.indexOf(
+          (image) => image.filename === filename
+        );
         lockToModify.images.splice(deleteIndex, 1);
         lockToModify.save();
         console.log('newlock');

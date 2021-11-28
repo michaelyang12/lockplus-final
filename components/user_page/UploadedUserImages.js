@@ -12,7 +12,7 @@ function UploadedUserImages(props) {
     axios
       .post('/api/deletephoto', {
         email: email,
-        image: image,
+        filename: image.filename,
       })
       .catch((err) => console.log(err))
       .then((response) => {
