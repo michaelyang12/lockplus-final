@@ -14,7 +14,7 @@ export default function RegisterForm() {
     console.log('click');
     const url = 'https://lockplus.tk/home'; 
     axios
-      .post('https://lockplus.tk/api/registerlock', {
+      .post('/api/registerlock', {
         lockCode: lockCode,
         email: email,
         name: name,
