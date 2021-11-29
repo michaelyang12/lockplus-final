@@ -28,11 +28,11 @@ function UsersForm(props) {
     usersDisplay.push(
       <div key={i}>
         <UserComponent
-          user={currentUser}
-          userList={props.userlist}
-          selectedUser={selectedUser}
-          setSelectedUser={setSelectedUser}
-          isPrimaryUser={isPrimaryUser}
+          user={currentUser} 
+          userList={props.userlist} 
+          selectedUser={selectedUser} 
+          setSelectedUser={setSelectedUser} 
+          isPrimaryUser={isPrimaryUser} 
         />
       </div>
     );
@@ -55,7 +55,11 @@ function UsersForm(props) {
         </UsersFormSidebar>
       </div>
       <div>
-        <SingleUserPage user={selectedUser} images={images} email={email} />
+        <SingleUserPage 
+          user={selectedUser}
+          images={images}
+          email={email}
+        />
         <AddUserModal
           open={isModalOpen}
           toggleFunc={toggle}
