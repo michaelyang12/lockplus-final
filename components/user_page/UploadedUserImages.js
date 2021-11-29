@@ -9,9 +9,6 @@ function UploadedUserImages(props) {
   const router = useRouter();
   var visibility = props.isUserSelected ? 'visible' : 'invisible';
   const image = props.image;
-  //const [img, setImg] = useState({});
-  //const [cType, setCType] = useState('');
-  //const [buff, setBuff] = useState('');
   const [source, setSource] = useState('');
   const [apiDone, setApiDone] = useState(false);
   const email = props.email;
