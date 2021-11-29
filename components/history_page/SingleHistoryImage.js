@@ -58,8 +58,22 @@ function SingleHistoryImage(props) {
             {accepted ? 'accepted' : 'rejected'}
           </p>
         </div>
-      ) : (
-        <div></div>
+      ) : ( //MODIFY APPEARANCE
+        <div class={`w-32 h-32 border border-lockplus-textGray ml-4 mb-4 mt-4`}>
+          <div
+            class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
+            <div class="mt-12 ml-14">
+              Loading...
+              <Loader
+                type="TailSpin"
+                color="#FFFFFF"
+                height={70}
+                width={70}
+                visible={true}
+              />
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

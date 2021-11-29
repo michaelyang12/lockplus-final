@@ -5,14 +5,18 @@ import React, { Component, useState } from 'react';
 import AddUserModal from '../components/user_page/AddUserModal';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useMemo } from 'react';
 
 function UsersPage(props) {
+  const router = useRouter();
   const usersList = props.userList;
   const email = props.sessionEmail;
   const images = props.userImages;
   console.log(usersList);
   console.log('help');
   console.log(images[0]);
+  //useEffect(() => {router.replace('/users')}, [props])
 
   return (
     <>
@@ -22,6 +26,7 @@ function UsersPage(props) {
             <HomeSidebar selectedTab={'users'} />
           </div>
           <div>
+            {/* <button onClick={refresh}>RELOAD</button> */}
             <UsersForm
               userlist={usersList}
               sessionEmail={email}
