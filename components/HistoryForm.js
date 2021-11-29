@@ -9,16 +9,24 @@ function HistoryForm(props) {
   const email = props.email;
   const photosDisplay = [];
   for (var i = hCount; i >= 0; i--) {
-    photosDisplay.push(<SingleHistoryImage index={i} email={email} />);
+    photosDisplay.push(
+      <SingleHistoryImage
+        index={i}
+        email={email}
+        setSelectedHistory={props.setSelectedHistory}
+      />
+    );
   }
 
   return (
-    <div class="absolute container h-screen w-screen bg-lockplus-backgroundBlue text-lockplus-textGray">
-      <div class="text-xl mt-8 font-light ml-6 mb-1">Lock Use History</div>
-      <div class="relative justify-between rounded-lg container p-4 h-5/6 w-2/6 overflow-y-scroll bg-scroll">
-        {photosDisplay.map((img) => (
-          <div>{img}</div>
-        ))}
+    <div class="relative container h-screen w-screen bg-lockplus-backgroundBlue text-lockplus-textGray overflow-y-auto">
+      <div className="flex">
+        <div className="relative border-2 border-black h-5/6 w-auto"></div>
+        <div class="relative justify-between rounded-lg container p-4 h-5/6 w-auto pt-2">
+          {photosDisplay.map((img) => (
+            <div>{img}</div>
+          ))}
+        </div>
       </div>
     </div>
   );
