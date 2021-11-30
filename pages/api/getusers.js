@@ -18,6 +18,8 @@ export default async (req, res) => {
       const lock = await Lock.findOne(data);
       console.log('lock');
       console.log(lock);
+      let lcode = '0';
+      lcode = lock.lockCode;
       let retImages = [];
       lock.images.forEach((image) => {
         retImages.push({ username: image.username, filename: image.filename });
@@ -26,6 +28,7 @@ export default async (req, res) => {
         success: true,
         message: 'lock updated',
         statusText: 'user added',
+        lcode: lock.lockCode,
         users: lock.users,
         images: retImages,
       });

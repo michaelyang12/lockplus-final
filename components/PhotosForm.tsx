@@ -18,25 +18,20 @@ interface Response {
 
 export const PhotosForm = (props) => {
   const router = useRouter();
-  const { data: session, status } = useSession();
-  /*const safeUser: string = slugify(props.user ?? "", {
-    remove: /"<>#%\{\}\|\\\^~\[\]`;\?:@=&/g,
-  });*/
-  const safeUser = encodeURIComponent(props.user);
+  const sessionEmail = props.sessionEmail;
+  const safeUser: string = slugify(props.user ?? '', {
+    remove: /[^\w_\-]/g,
+  });
+  //const safeUser = encodeURIComponent(props.user);
   console.log('user');
   console.log(safeUser);
   const [uploadSuccess, setUploadSuccess] = useState('');
-  const [sessionEmail, setSessionEmail] = useState('null');
-
-  if (session && sessionEmail === 'null') {
-    setSessionEmail(session.user.email);
-  }
 
   const [isRefreshing, setIsRefreshing] = React.useState(false);
 
   function refreshData() {
     router.replace('/users');
-  };
+  }
 
   React.useEffect(() => {
     setIsRefreshing(false);
@@ -57,16 +52,8 @@ export const PhotosForm = (props) => {
         );
       },
     };
-    const codeResponse: any = await axios
-      .post('/api/codefromemail', {
-        email: sessionEmail,
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
     console.log('code');
-    const code: string = codeResponse.data.code;
+    const code: string = props.code;
     console.log(code);
     const apiUrl: string = '/api/dbPhotos/' + code + '/' + safeUser;
     const response: any = await axios.post(apiUrl, formData, config);

@@ -5,32 +5,25 @@ const Lock = mongoose.model('Lock');
 
 export default async (req, res) => {
   const { method } = req;
-  const filename = req.query.filename;
   await connectDB(); //async connect to the database
   if (method === 'POST') {
     try {
-      const image = await Lock.findOne(
-        {
-          images: {
-            $elemMatch: {
-              filename: filename,
-            },
-          },
-        },
-        {
-          images: {
-            $elemMatch: {
-              filename: filename,
-            },
-          },
-        }
-      );
+      const data = {
+        account_email: req.body.email,
+      };
+      console.log('prelock');
+      const lock = await Lock.findOne(data);
+      console.log('postlock');
+      const index = req.body.index;
+      const newIndex = index + 1;
+      const cont = newIndex >= lock.images.length ? false : true;
       res.status(201).json({
         success: true,
         message: 'lock updated',
         statusText: 'user added',
-        buffer: image.images[0].img.data,
-        cType: image.images[0].img.contentType,
+        image: lock.images[index],
+        index: newIndex,
+        run: cont,
       });
     } catch (error) {
       console.log('error here');

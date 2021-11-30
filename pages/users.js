@@ -7,12 +7,15 @@ import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo } from 'react';
+//import getImages from '../util/getImages';
+//import getPhotos from '../util/dbInterface';
 
 function UsersPage(props) {
-  const router = useRouter();
+  //const router = useRouter();
   const usersList = props.userList;
   const email = props.sessionEmail;
   const images = props.userImages;
+  const code = props.lcode;
   console.log(usersList);
   console.log('help');
   console.log(images[0]);
@@ -31,6 +34,7 @@ function UsersPage(props) {
               userlist={usersList}
               sessionEmail={email}
               userImages={images}
+              code={code}
             />
           </div>
         </div>
@@ -47,11 +51,12 @@ export async function getServerSideProps(context) {
   if (session) {
     param = session.user.email;
   }
-  console.log('param' + param);
+  console.log('param ' + param);
   var users = [];
   let images = [];
+  let lcode = '0';
   await axios
-    .post('http://lockplus.tk/api/getusers', {
+    .post('http://localhost:3000/api/getusers', {
       email: param,
     })
     .catch((err) => {
@@ -62,16 +67,17 @@ export async function getServerSideProps(context) {
       if (response) {
         users = response.data.users;
         images = response.data.images;
-        console.log('success');
-        console.log(users);
-        console.log(images);
+        lcode = response.data.lcode;
       }
     });
+  console.log('images');
+  //images = await getImages('users', param);
   return {
     props: {
       userList: users,
       sessionEmail: param,
       userImages: images,
+      lcode: lcode,
     },
   };
 }

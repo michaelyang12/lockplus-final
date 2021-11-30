@@ -16,6 +16,7 @@ function UsersForm(props) {
   const userCount = userList.length;
   const images = props.userImages;
   const email = props.sessionEmail;
+  const code = props.code;
   const router = useRouter();
   const primaryUser = userList[0] ? userList[0] : '';
   console.log(props.email);
@@ -28,11 +29,11 @@ function UsersForm(props) {
     usersDisplay.push(
       <div key={i}>
         <UserComponent
-          user={currentUser} 
-          userList={props.userlist} 
-          selectedUser={selectedUser} 
-          setSelectedUser={setSelectedUser} 
-          isPrimaryUser={isPrimaryUser} 
+          user={currentUser}
+          userList={props.userlist}
+          selectedUser={selectedUser}
+          setSelectedUser={setSelectedUser}
+          isPrimaryUser={isPrimaryUser}
         />
       </div>
     );
@@ -55,10 +56,11 @@ function UsersForm(props) {
         </UsersFormSidebar>
       </div>
       <div>
-        <SingleUserPage 
+        <SingleUserPage
           user={selectedUser}
           images={images}
           email={email}
+          code={code}
         />
         <AddUserModal
           open={isModalOpen}
