@@ -13,13 +13,14 @@ function HistoryForm(props) {
       <SingleHistoryImage
         index={i}
         email={email}
+        hCount={hCount}
         setSelectedHistory={props.setSelectedHistory}
       />
     );
   }
 
   return (
-    <div class="relative container h-screen w-screen bg-lockplus-backgroundBlue text-lockplus-textGray overflow-y-auto border-l border-gray-500">
+    <div class="relative w-1/3 container h-screen w-full bg-lockplus-backgroundBlue text-lockplus-textGray overflow-y-auto border-r border-gray-500">
       <div className="flex">
         <div class="relative justify-between rounded-lg container p-8 h-5/6 w-auto">
           {photosDisplay.map((img) => (

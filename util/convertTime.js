@@ -3,7 +3,6 @@ function convertTime(pretime) {
   const tempTime = isoTime[1].split('.');
   const oneMore = tempTime[0];
   const time = oneMore.split(':'); // convert to array
-
   // fetch
   var hours = Number(time[0]);
   var minutes = Number(time[1]);
