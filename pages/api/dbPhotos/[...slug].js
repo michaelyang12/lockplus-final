@@ -46,10 +46,15 @@ photoUploadApi.post(async (req, res) => {
     console.log(fileExt);
     const dateAppend = Date.now();
     console.log(imgBuffer);
+    const decodedUser = decodeURIComponent(slug[1]);
+    const safeUser = slugify(decodedUser ?? '', {
+      remove: /"<>#%\{\}\|\\\^~\[\]`;\?:@=&/g,
+    });
+    const filename = safeUser + dateAppend + fileExt;
     const newimg = {
-      username: slug[1],
+      username: decodedUser,
       img: { data: imgBuffer, contentType: cType },
-      filename: slug[1] + dateAppend + fileExt,
+      filename: filename,
     };
     console.log('newimg');
     console.log(newimg);

@@ -4,8 +4,8 @@ import { useSession } from 'next-auth/react';
 import slugify from 'slugify';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import Loader from "react-loader-spinner";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from 'react-loader-spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 /*
 interface Response {
@@ -19,9 +19,10 @@ interface Response {
 export const PhotosForm = (props) => {
   const router = useRouter();
   const { data: session, status } = useSession();
-  const safeUser: string = slugify(props.user ?? "", {
+  /*const safeUser: string = slugify(props.user ?? "", {
     remove: /"<>#%\{\}\|\\\^~\[\]`;\?:@=&/g,
-  });
+  });*/
+  const safeUser = encodeURIComponent(props.user);
   console.log('user');
   console.log(safeUser);
   const [uploadSuccess, setUploadSuccess] = useState('');
@@ -32,7 +33,7 @@ export const PhotosForm = (props) => {
   }
 
   const [isRefreshing, setIsRefreshing] = React.useState(false);
-  
+
   function refreshData() {
     router.replace('/users');
   };
@@ -40,14 +41,10 @@ export const PhotosForm = (props) => {
   React.useEffect(() => {
     setIsRefreshing(false);
   }, [props]);
-  
-  var loadVisibility = isRefreshing
-    ? "visible"
-    : "invisible"
 
-  var messageVisibility = !isRefreshing
-    ? "visible"
-    : "invisible"
+  var loadVisibility = isRefreshing ? 'visible' : 'invisible';
+
+  var messageVisibility = !isRefreshing ? 'visible' : 'invisible';
 
   const onChange = async (formData) => {
     setIsRefreshing(true);
@@ -86,19 +83,21 @@ export const PhotosForm = (props) => {
         uploadFileName="theFiles"
         onChange={onChange}
       />
-      <div className={`${loadVisibility} mt-4 ml-36 font-lockplus font-md text-gray-700 text-md w-64`}>
+      <div
+        className={`${loadVisibility} mt-4 ml-36 font-lockplus font-md text-gray-700 text-md w-64`}>
         Uploading...
-        <div className='absolute top-0 mt-4 ml-24'>
+        <div className="absolute top-0 mt-4 ml-24">
           <Loader
             type="TailSpin"
             color="#00BFFF"
             height={25}
             width={25}
-            visible={isRefreshing} 
+            visible={isRefreshing}
           />
         </div>
       </div>
-      <div className={`${messageVisibility} absolute -ml-48 -pl-8 mt-6 h-12 whitespace-nowrap text-left text-gray-700 font-lockplus font-md text-red-500 text-md w-full`}>
+      <div
+        className={`${messageVisibility} absolute -ml-48 -pl-8 mt-6 h-12 whitespace-nowrap text-left text-gray-700 font-lockplus font-md text-red-500 text-md w-full`}>
         {uploadSuccess}
       </div>
     </div>
