@@ -2,6 +2,7 @@ import connectDB from '../../util/database';
 require('../../models/Lock');
 import mongoose from 'mongoose';
 const Lock = mongoose.model('Lock');
+import slugify from 'slugify';
 
 export default async (req, res) => {
   const { method } = req;
@@ -25,9 +26,12 @@ export default async (req, res) => {
         console.log('delete found');
         console.log(lockToModify);
         lockToModify.users.splice(deleteIndex, 1);
+        const safeUser = slugify(username ?? '', {
+          remove: /[^\w_\-]/g,
+        });
         let i = 0;
         for (i = 0; i < lockToModify.images.length; i++) {
-          if (lockToModify.images[i].username === username) {
+          if (lockToModify.images[i].username === safeUser) {
             lockToModify.images.splice(i, 1);
           }
         }

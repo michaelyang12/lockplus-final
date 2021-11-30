@@ -11,11 +11,11 @@ function SingleHistoryImage(props) {
   const email = props.email;
   const index = props.index;
   const [source, setSource] = useState('');
-  const [apiDone, setApiDone] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [timestamp, setTimestamp] = useState('');
   const [username, setUsername] = useState('');
   const [date, setDate] = useState('');
+  const [apiDone, setApiDone] = useState(false);
   useEffect(() => {
     console.log('is this even working? history addition');
     axios
@@ -41,11 +41,32 @@ function SingleHistoryImage(props) {
           setUsername(response.data.username);
           setAccepted(response.data.accepted);
           setApiDone(true);
+          // if (index === hCount) {
+          //   props.setSelectedUsername(username);
+          //   props.setSelectedDate(date);
+          //   props.setSelectedAccepted(accepted);
+          //   props.setSelectedSource(source);
+          //   props.setSelectedTimestamp(timestamp);
+          //   props.setSelectedHistory(index);
+          // }
         }
       });
   }, []);
   const clickHandler = () => {
-    props.setSelectedHistory(index);
+    /*props.setSelectedUsername(username);
+    props.setSelectedDate(date);
+    props.setSelectedAccepted(accepted);
+    props.setSelectedSource(source);
+    props.setSelectedTimestamp(timestamp);
+    props.setSelectedHistory(index);*/
+    props.setSelectedUser({
+      username: username,
+      source: source,
+      index: index,
+      accepted: accepted,
+      time: timestamp,
+      date: date,
+    });
   };
   return (
     <>

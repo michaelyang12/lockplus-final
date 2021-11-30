@@ -19,11 +19,16 @@ export default async (req, res) => {
       console.log('lock');
       console.log(lock);
       const hCount = lock.history.length - 1;
+      const target = lock.history[hCount];
       res.status(201).json({
         success: true,
         message: 'lock updated',
         statusText: 'user added',
         historyCount: hCount,
+        buffer: target.img.data,
+        accepted: target.accepted,
+        timestamp: target.timestamp,
+        username: target.username,
       });
     } catch (error) {
       console.log('error here');

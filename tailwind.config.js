@@ -10,7 +10,7 @@ module.exports = {
           hoverGray: '#D1E5E8',
           opacGray: '#C4C4C4',
           placeholderGray: '#CFCFCF',
-          textGray: "#1f2937",
+          textGray: '#1f2937',
           backgroundBlue: '#dbeafe',
           historyBlue: '#cce1ff',
         },
