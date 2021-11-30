@@ -10,7 +10,7 @@ export default function LoginForm() {
   //const falseVar = false;
   function handleSubmit(e) {
     e.preventDefault();
-    const url = 'https://lockplus.tk/home';
+    const url = `${process.env.FLUID_URL}/home`;
     axios
       .post('/api/signinlock', {
         email: email,

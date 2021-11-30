@@ -56,7 +56,7 @@ export async function getServerSideProps(context) {
   let images = [];
   let lcode = '0';
   await axios
-    .post('http://localhost:3000/api/getusers', {
+    .post(`${process.env.FLUID_URL}/api/getusers`, {
       email: param,
     })
     .catch((err) => {
