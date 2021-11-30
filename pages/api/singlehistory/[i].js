@@ -6,23 +6,21 @@ const Lock = mongoose.model('Lock');
 export default async (req, res) => {
   const { method } = req;
   const index = req.query.i;
-  console.log(index);
   await connectDB(); //async connect to the database
-  console.log('in single history');
   if (method === 'POST') {
     try {
-      console.log('marker1');
       const data = {
         account_email: req.body.email,
       };
-      const lock = await Lock.findOne(data);
-      const target = lock.history[index];
+      const history = await Lock.findOne(data, { history });
+      console.log('history sped up');
+      console.log(history);
+      const target = history[index];
       res.status(201).json({
         success: true,
         message: 'lock updated',
         statusText: 'user added',
         buffer: target.img.data,
-        //cType: target.img.contentType,
         accepted: target.accepted,
         timestamp: target.timestamp,
         username: target.username,

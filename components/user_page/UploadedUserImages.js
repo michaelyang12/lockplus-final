@@ -44,7 +44,7 @@ function UploadedUserImages(props) {
         );
         setApiDone(true);
       });
-  }, []);
+  }, [props]);
 
   function deleteImg(e) {
     e.preventDefault();

@@ -52,16 +52,8 @@ export const PhotosForm = (props) => {
         );
       },
     };
-    const codeResponse: any = await axios
-      .post('/api/codefromemail', {
-        email: sessionEmail,
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
     console.log('code');
-    const code: string = codeResponse.data.code;
+    const code: string = props.code;
     console.log(code);
     const apiUrl: string = '/api/dbPhotos/' + code + '/' + safeUser;
     const response: any = await axios.post(apiUrl, formData, config);

@@ -34,9 +34,6 @@ photoUploadApi.post(async (req, res) => {
     };
     console.log('lock');
     let lock = await Lock.findOne(data);
-    console.log(lock);
-    const filePath = './uploads/' + slug.join('/');
-    console.log(filePath);
     console.log(slug[1]);
     console.log(req.files[0]);
     const imgBuffer = req.files[0].buffer;
@@ -46,13 +43,14 @@ photoUploadApi.post(async (req, res) => {
     console.log(fileExt);
     const dateAppend = Date.now();
     console.log(imgBuffer);
-    const decodedUser = decodeURIComponent(slug[1]);
-    const safeUser = slugify(decodedUser ?? '', {
+    //const decodedUser = decodeURIComponent(slug[1]);
+    /*const safeUser = slugify(decodedUser ?? '', {
       remove: /"<>#%\{\}\|\\\^~\[\]`;\?:@=&/g,
-    });
+    });*/
+    const safeUser = slug[1];
     const filename = safeUser + dateAppend + fileExt;
     const newimg = {
-      username: decodedUser,
+      username: safeUser,
       img: { data: imgBuffer, contentType: cType },
       filename: filename,
     };

@@ -6,29 +6,31 @@ const Lock = mongoose.model('Lock');
 export default async (req, res) => {
   const { method } = req;
   const filename = req.query.filename;
-  console.log(filename);
   await connectDB(); //async connect to the database
-  console.log('in single Photo');
   if (method === 'POST') {
     try {
-      console.log('marker1');
-      const data = {
-        account_email: req.body.email,
-      };
-      const lock = await Lock.findOne(data);
-      let image;
-      lock.images.forEach((img) => {
-        if (img.filename === filename) {
-          image = img;
+      const image = await Lock.findOne(
+        {
+          images: {
+            $elemMatch: {
+              filename: filename,
+            },
+          },
+        },
+        {
+          images: {
+            $elemMatch: {
+              filename: filename,
+            },
+          },
         }
-      });
-      console.log(image);
+      );
       res.status(201).json({
         success: true,
         message: 'lock updated',
         statusText: 'user added',
-        buffer: image.img.data,
-        cType: image.img.contentType,
+        buffer: image.images[0].img.data,
+        cType: image.images[0].img.contentType,
       });
     } catch (error) {
       console.log('error here');
