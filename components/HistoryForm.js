@@ -19,10 +19,9 @@ function HistoryForm(props) {
   }
 
   return (
-    <div class="relative container h-screen w-screen bg-lockplus-backgroundBlue text-lockplus-textGray overflow-y-auto">
+    <div class="relative container h-screen w-screen bg-lockplus-backgroundBlue text-lockplus-textGray overflow-y-auto border-l border-gray-500">
       <div className="flex">
-        <div className="relative border-2 border-black h-5/6 w-auto"></div>
-        <div class="relative justify-between rounded-lg container p-4 h-5/6 w-auto pt-2">
+        <div class="relative justify-between rounded-lg container p-8 h-5/6 w-auto">
           {photosDisplay.map((img) => (
             <div>{img}</div>
           ))}

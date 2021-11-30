@@ -1,19 +1,17 @@
 import HomeSidebar from '../components/HomeSidebar';
-import { useSession, getSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import HomeForm from '../components/HomeForm';
 
 export default function HomePage(props) {
   const router = useRouter();
-  //const { data: session, status } = useSession();
-  //const loading = status === 'loading';
-
-  //const [sessionEmail, setSessionEmail] = useState('null');
-  const sessionEmail = props.sessionEmail;
-  /*if (session && sessionEmail === 'null') {
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
+  const [sessionEmail, setSessionEmail] = useState('null');
+  if (session && sessionEmail === 'null') {
     setSessionEmail(session.user.email);
-  }*/
+  }
   if (sessionEmail) {
     return (
       <div class="h-screen w-screen bg-lockplus-opacGray">
@@ -27,21 +25,10 @@ export default function HomePage(props) {
         </div>
       </div>
     );
-  } /*else if (loading) {
-    return <div className="-screen w-screen bg-black"></div>;
-  } */ else {
-    return (
-      <div className="h-screen w-screen bg-black text-white">LOCKED OUT</div>
-    );
+  } else if (loading) {
+    return <div className="-screen w-screen bg-lockplus-opacGray"></div>;
+  } else {
+    router.push('/');
+    return <></>;
   }
-}
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  const param = session.user.email;
-  return {
-    props: {
-      sessionEmail: param,
-    },
-  };
 }

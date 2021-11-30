@@ -18,19 +18,14 @@ interface Response {
 
 export const PhotosForm = (props) => {
   const router = useRouter();
-  const { data: session, status } = useSession();
-  /*const safeUser: string = slugify(props.user ?? "", {
-    remove: /"<>#%\{\}\|\\\^~\[\]`;\?:@=&/g,
-  });*/
-  const safeUser = encodeURIComponent(props.user);
+  const sessionEmail = props.sessionEmail;
+  const safeUser: string = slugify(props.user ?? '', {
+    remove: /[^\w_\-]/g,
+  });
+  //const safeUser = encodeURIComponent(props.user);
   console.log('user');
   console.log(safeUser);
   const [uploadSuccess, setUploadSuccess] = useState('');
-  const [sessionEmail, setSessionEmail] = useState('null');
-
-  if (session && sessionEmail === 'null') {
-    setSessionEmail(session.user.email);
-  }
 
   const [isRefreshing, setIsRefreshing] = React.useState(false);
 
@@ -72,7 +67,7 @@ export const PhotosForm = (props) => {
     const response: any = await axios.post(apiUrl, formData, config);
     setUploadSuccess(response.data.message);
     //if (response.status < 300) {
-      refreshData();
+    refreshData();
     //}
   };
 

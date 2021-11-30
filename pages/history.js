@@ -17,7 +17,7 @@ function HistoryPage(props) {
           <HomeSidebar selectedTab={'history'} />
         </div>
         <div class="flex relative">
-          <div class="absolute left-0 w-full text-left text-xl h-18 pl-8 pt-6 pb-4 font-light z-30 opacity-95 bg-lockplus-backgroundBlue">
+          <div class="absolute left-0 w-auto text-left text-xl h-18 pl-8 pt-6 pb-4 font-light z-30">
             Lock Use History
           </div>
           <SelectedHistory userIndex={selectedHistory} />

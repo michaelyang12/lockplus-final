@@ -1,6 +1,7 @@
 import { Button } from 'reactstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PhotosForm } from '../PhotosForm';
+import slugify from 'slugify';
 import UploadPhotoPrompt from './UploadPhotoPrompt';
 import UploadedUserImages from './UploadedUserImages';
 
@@ -9,7 +10,13 @@ function SingleUserPage(props) {
   const header = (user + '').length == 0 ? 'No user selected' : user;
   const images = props.images;
   const email = props.email;
-  let displayImages = [];
+  const code = props.code;
+  //let photoCount;
+  const [displayImages, setDisplayImages] = useState([]);
+  const safeUser = slugify(user ?? '', {
+    remove: /[^\w_\-]/g,
+  });
+  //let displayImages = [];
   // const [isUserSelected, setIsUserSelected] = useState(false)
   var isUserSelected = false;
 
@@ -18,20 +25,28 @@ function SingleUserPage(props) {
   } else {
     isUserSelected = false;
   }
-  images.forEach((image) => {
-    if (image.username === props.user) {
-      displayImages.push(image);
-    }
-  });
+  useEffect(() => {
+    setDisplayImages([]);
+    console.log('safe user');
+    console.log(safeUser);
+    images.forEach((image) => {
+      console.log('imguser');
+      console.log(image.username);
+      if (image.username === safeUser) {
+        console.log('here');
+        setDisplayImages((arr) => [...arr, image]);
+      }
+    });
+    //photoCount = displayImages.length;
+  }, [props.user]);
+
   // } else {
   //   setIsUserSelected(false)
   // }
 
-  var visibility = displayImages.length > 0
-    ? "invisible"
-    : "visible"
+  var visibility = displayImages.length > 0 ? 'invisible' : 'visible';
 
-  var photoCount = displayImages.length
+  var photoCount = displayImages.length;
 
   return (
     <div className="relative h-full w-full bg-blue-100 container p-4">
@@ -40,16 +55,18 @@ function SingleUserPage(props) {
           <div className="text-2xl font-bold font-lockplus text-left pr-4 text-gray-700">
             User: <span class="ml-1 text-gray-600 inline-flex"> {header} </span>
           </div>
-          <p className="relative mt-12 mb-2 text-md font-regular font-lockplus text-left text-gray-700"> 
-          {photoCount} photos uploaded: 
+          <p className="relative mt-12 mb-2 text-md font-regular font-lockplus text-left text-gray-700">
+            {photoCount} photos uploaded:
           </p>
         </div>
       </div>
       <div className="-mt-24 rounded-lg flex flex-wrap w-4/5 h-56 overflow-auto bg-lockplus-historyBlue">
-        <div class={`invisible absolute text-2xl font-regular left-96 mt-20 font-lockplus text-gray-700`}>
+        <div
+          class={`invisible absolute text-2xl font-regular left-96 mt-20 font-lockplus text-gray-700`}>
           No Photos Found
         </div>
-        <div class={`invisible absolute text-lg font-regular left-72 mt-28 font-lockplus text-gray-700`}>
+        <div
+          class={`invisible absolute text-lg font-regular left-72 mt-28 font-lockplus text-gray-700`}>
           Try uploading a photo using the prompt below
         </div>
         {displayImages.map((image) => (
@@ -60,6 +77,7 @@ function SingleUserPage(props) {
                 isUserSelected={isUserSelected}
                 image={image}
                 email={email}
+                code={code}
               />
             }
           </div>
@@ -69,6 +87,8 @@ function SingleUserPage(props) {
         <UploadPhotoPrompt
           user={props.user}
           isUserSelected={isUserSelected}
+          email={email}
+          code={code}
         />
       </div>
     </div>
