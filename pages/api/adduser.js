@@ -1,7 +1,9 @@
 import connectDB from '../../util/database';
 require('../../models/Lock');
+require('../../models/UpdateStatus');
 import mongoose from 'mongoose';
 const Lock = mongoose.model('Lock');
+const UpdateStatus = mongoose.model('UpdateStatus');
 
 export default async (req, res) => {
   const { method } = req;
@@ -27,6 +29,9 @@ export default async (req, res) => {
         lockToModify.save();
         console.log('newlock');
         console.log(lockToModify);
+        let update = await UpdateStatus.findOne(data);
+        update.user_status = true;
+        update.save();
         res.status(201).json({
           success: true,
           message: 'lock updated',

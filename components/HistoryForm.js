@@ -15,6 +15,7 @@ function HistoryForm(props) {
         email={email}
         hCount={hCount}
         setSelectedHistory={props.setSelectedHistory}
+        setSelectedUser={props.setSelectedUser}
       />
     );
   }
