@@ -98,7 +98,7 @@ export async function getServerSideProps(context) {
   console.log('param' + param);
   let hCount = 0;
   await axios
-    .post('http://localhost:3000/api/historycount', {
+    .post(`${process.env.FLUID_URL}/api/historycount`, {
       email: param,
     })
     .catch((err) => {
@@ -107,12 +107,14 @@ export async function getServerSideProps(context) {
     })
     .then((response) => {
       if (response) {
-        hCount = response.data.historyCount;
-        buffer = response.data.buffer;
-        accepted = response.data.accepted;
-        tdstamp = response.data.timestamp;
-        username = response.data.username;
-        console.log('success');
+        if (response.data) {
+          hCount = response.data.historyCount;
+          buffer = response.data.buffer;
+          accepted = response.data.accepted;
+          tdstamp = response.data.timestamp;
+          username = response.data.username;
+          console.log('success');
+        }
       }
     });
   return {

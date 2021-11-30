@@ -1,6 +1,11 @@
 import HomeSidebar from '../components/HomeSidebar';
+<<<<<<< HEAD
 import { getSession } from 'next-auth/react';
 import { useState } from 'react';
+=======
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+>>>>>>> d23b12f08f1e54c3a6e85b23453483bec1152032
 import { useRouter } from 'next/router';
 import HomeForm from '../components/HomeForm';
 
@@ -30,7 +35,9 @@ export default function HomePage(props) {
     );
   } else {
     router.push('/');
-    return <></>;
+    return (
+      <></>
+    );
   }
 }
 

@@ -12,7 +12,7 @@ export default function RegisterForm() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('click');
-    const url = 'https://lockplus.tk/home'; 
+    const url = `${process.env.FLUID_URL}/home`; 
     axios
       .post('/api/registerlock', {
         lockCode: lockCode,

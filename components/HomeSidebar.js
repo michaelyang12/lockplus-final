@@ -38,9 +38,9 @@ function HomeSidebar(props) {
       <HistoryBar
         selectedItem = {selectedTab}
       />
-      <SettingsBar
+      {/* <SettingsBar
         selectedItem = {selectedTab}
-      />
+      /> */}
       {/* <AddPhotosBar /> */}
       <SignOutBar />
     </div>

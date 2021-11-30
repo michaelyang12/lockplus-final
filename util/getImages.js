@@ -8,7 +8,7 @@ export default async function getImages(type, email) {
   let run = true;
   while (run) {
     await axios
-      .post(`http://localhost:3000/api/getimages/${type}`, {
+      .post(`${process.env.FLUID_URL}/api/getimages/${type}`, {
         index: index,
         email: email,
       })
