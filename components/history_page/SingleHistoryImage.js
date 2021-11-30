@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import convertTime from '../../util/convertTime';
+import convertDate from '../../util/convertDate';
 
 function SingleHistoryImage(props) {
   const email = props.email;
@@ -14,6 +15,7 @@ function SingleHistoryImage(props) {
   const [accepted, setAccepted] = useState(false);
   const [timestamp, setTimestamp] = useState('');
   const [username, setUsername] = useState('');
+  const [date, setDate] = useState('');
   useEffect(() => {
     console.log('is this even working? history addition');
     axios
@@ -32,8 +34,10 @@ function SingleHistoryImage(props) {
             ).toString('base64')}`
           );
           const displayTime = convertTime(response.data.timestamp);
+          const displayDate = convertDate(response.data.timestamp);
           console.log(displayTime);
           setTimestamp(displayTime);
+          setDate(displayDate);
           setUsername(response.data.username);
           setAccepted(response.data.accepted);
           setApiDone(true);
@@ -47,7 +51,7 @@ function SingleHistoryImage(props) {
     <>
       {apiDone ? (
         <button
-          class="flex bg-lockplus-historyBlue w-full mb-4 rounded-lg h-48 pt-2 focus:outline-none transform hover:scale-102"
+          class="flex relative bg-lockplus-historyBlue w-full mb-4 rounded-lg h-48 pt-2 focus:outline-none transform hover:scale-102"
           onClick={clickHandler}>
           <div class={`w-36 h-36 ml-4 mb-4 mt-4 flex-shrink-0`}>
             <Image
@@ -66,8 +70,12 @@ function SingleHistoryImage(props) {
             </span>
             .
           </p>
+          <div className="absolute right-0 bottom-0 h-12 w-auto whitespace-nowrap p-4 text-right text-black text-sm font-lockplus font-md">
+            {date}
+          </div>
         </button>
-      ) : ( //MODIFY APPEARANCE
+      ) : (
+        //MODIFY APPEARANCE
         <div class={`w-32 h-32 border border-lockplus-textGray ml-4 mb-4 mt-4`}>
           <div
             class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
