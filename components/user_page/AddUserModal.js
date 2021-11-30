@@ -14,9 +14,10 @@ function AddUserModal(props) {
   const addUser = () => {
     if (input.length > 0) {
       for (var i = 0; i < props.usersList.length; i++) {
-        if (props.usersList[i].username == input) {
+        if (props.usersList[i] == input) {
           setDoesUserExist(true);
-          break;
+          alert("User already exists");
+          return;
         } else {
           setDoesUserExist(false);
         }
@@ -36,6 +37,8 @@ function AddUserModal(props) {
       } else {
         alert('User/Name already exists!');
       }
+    } else {
+      alert('Please input a username');
     }
   };
 

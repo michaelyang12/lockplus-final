@@ -22,7 +22,6 @@ function DeleteUserButton(props) {
 
   const refreshData = () => {
     router.replace('/users');
-    setIsRefreshing(true);
   };
 
   useEffect(() => {
@@ -34,6 +33,7 @@ function DeleteUserButton(props) {
     : "invisible"
 
   const click = () => {
+    setIsRefreshing(true);
     const index = props.userList.indexOf(user);
     console.log(index);
     axios
@@ -44,10 +44,10 @@ function DeleteUserButton(props) {
       })
       .catch((err) => console.log(err))
       .then((response) => {
-        console.log(response);
+        console.log('*****' + response.status + '******');
+        console.log(user + ' removed!');
         refreshData();
       });
-    console.log(user + ' removed!');
   };
 
   const visibility =

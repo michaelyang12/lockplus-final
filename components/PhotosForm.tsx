@@ -35,7 +35,6 @@ export const PhotosForm = (props) => {
   
   function refreshData() {
     router.replace('/users');
-    setIsRefreshing(true);
   };
 
   React.useEffect(() => {
@@ -51,6 +50,7 @@ export const PhotosForm = (props) => {
     : "invisible"
 
   const onChange = async (formData) => {
+    setIsRefreshing(true);
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
       onUploadProgress: (event) => {
