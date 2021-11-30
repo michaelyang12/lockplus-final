@@ -31,7 +31,6 @@ export const PhotosForm = (props) => {
 
   function refreshData() {
     router.replace('/users');
-    setIsRefreshing(true);
   }
 
   React.useEffect(() => {
@@ -43,6 +42,7 @@ export const PhotosForm = (props) => {
   var messageVisibility = !isRefreshing ? 'visible' : 'invisible';
 
   const onChange = async (formData) => {
+    setIsRefreshing(true);
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
       onUploadProgress: (event) => {
@@ -58,9 +58,7 @@ export const PhotosForm = (props) => {
     const apiUrl: string = '/api/dbPhotos/' + code + '/' + safeUser;
     const response: any = await axios.post(apiUrl, formData, config);
     setUploadSuccess(response.data.message);
-    //if (response.status < 300) {
     refreshData();
-    //}
   };
 
   return (

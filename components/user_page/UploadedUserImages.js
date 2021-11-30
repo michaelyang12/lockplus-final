@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -18,7 +18,6 @@ function UploadedUserImages(props) {
 
   const refreshData = () => {
     router.replace('/users');
-    setIsRefreshing(true);
   };
 
   useEffect(() => {
@@ -27,7 +26,8 @@ function UploadedUserImages(props) {
 
   var visibility = isRefreshing ? 'visible' : 'invisible';
 
-  useEffect(() => {
+  useMemo(() => {
+    setApiDone(false);
     console.log('is this even working?');
     axios
       .post(`/api/singlephoto/${image.filename}`, {
@@ -36,17 +36,20 @@ function UploadedUserImages(props) {
       .catch((err) => console.log(err))
       .then((response) => {
         console.log('response');
-        console.log(response.data);
-        setSource(
-          `data:${response.data.cType};base64,${Buffer.from(
-            response.data.buffer
-          ).toString('base64')}`
-        );
-        setApiDone(true);
+        // console.log(response.data);
+        if (response) {
+          setSource(
+            `data:${response.data.cType};base64,${Buffer.from(
+              response.data.buffer
+            ).toString('base64')}`
+          );
+          setApiDone(true);
+        }
       });
   }, [props]);
 
   function deleteImg(e) {
+    setIsRefreshing(true);
     e.preventDefault();
     console.log('delete image call');
     axios
