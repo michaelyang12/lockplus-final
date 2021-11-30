@@ -8,7 +8,7 @@ function HomeForm(props) {
             {/* <h1 class="text-xl mb-4">
                 Welcome {userEmail}!
             </h1> */}
-            <div class="w-auto h-full font-light rounded-lg p-2 bg-blue-300 font-lockplus text-xl text-gray-800">
+            <div class="w-full h-full font-light rounded-lg p-2 bg-blue-300 font-lockplus text-xl text-gray-800">
                 Welcome {userEmail}!
                 <div class="mt-4 object-fill w-3/6 rounded-lg p-4 bg-blue-500 font-lockplus text-gray-800">
                     <Clock
