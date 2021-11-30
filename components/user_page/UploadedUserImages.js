@@ -17,7 +17,7 @@ function UploadedUserImages(props) {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const refreshData = () => {
-    router.replace('/users');
+    router.replace(router.asPath);
   };
 
   useEffect(() => {
@@ -41,12 +41,11 @@ function UploadedUserImages(props) {
           setSource(
             `data:${response.data.cType};base64,${Buffer.from(
               response.data.buffer
-            ).toString('base64')}`
-          );
+            ).toString('base64')}`)
           setApiDone(true);
         }
       });
-  }, [props]);
+  }, [props.image]);
 
   function deleteImg(e) {
     setIsRefreshing(true);
@@ -60,7 +59,11 @@ function UploadedUserImages(props) {
       .catch((err) => console.log(err))
       .then((response) => {
         console.log(response);
-        refreshData();
+        if (response) {
+          refreshData();
+          console.log("Delete: ****")
+          console.log(image.filename)
+        }
       });
   }
 

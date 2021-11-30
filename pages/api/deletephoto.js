@@ -20,7 +20,7 @@ export default async (req, res) => {
       console.log('lock');
       console.log(lockToModify);
       if (lockToModify) {
-        const deleteIndex = lockToModify.images.indexOf(
+        const deleteIndex = lockToModify.images.findIndex(
           (image) => image.filename === filename
         );
         lockToModify.images.splice(deleteIndex, 1);
