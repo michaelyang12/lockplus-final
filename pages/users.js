@@ -1,6 +1,6 @@
 import HomeSidebar from '../components/HomeSidebar';
 import UsersForm from '../components/UsersForm';
-import React, { Component, useCallback, useEffect, useState } from 'react';
+import React, { Component, useCallback, useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -11,67 +11,61 @@ function UsersPage(props) {
   const usersList = props.userList;
   const email = props.sessionEmail;
   const images = props.userImages;
-  const [loading, setLoading] = useState(true);
-  var imagesDisplay = []
+  const [loading, setLoading] = useState(false);
+  var imagesDisplay = [];
   console.log(usersList);
   console.log('help');
   console.log(images[0]);
   //useEffect(() => {router.replace('/users')}, [props])
-  usersList.forEach((user) => {
-    images.forEach((image) => {
-      if (user === image.username) {
-        var source = '';
-        axios
-          .post(`/api/singlephoto/${image.filename}`, {
-            email: email,
-          })
-          .catch((err) => console.log(err))
-          .then((response) => {
-            source = `data:${response.data.cType};base64,${Buffer.from(response.data.buffer).toString('base64')}`;
-            var foo = { 
-              'user' : user, 
-              'image' : image, 
-              'source' : source,
-            };
-            imagesDisplay.push(foo);
-          });
-      }
+  useMemo(() => {
+    console.log("MEMO")
+    // setLoading(true);
+    usersList.forEach((user) => {
+      images.forEach((image) => {
+        if (user === image.username) {
+          var source = '';
+          axios
+            .post(`/api/singlephoto/${image.filename}`, {
+              email: email,
+            })
+            .catch((err) => console.log(err))
+            .then((response) => {
+              source = `data:${response.data.cType};base64,${Buffer.from(response.data.buffer).toString('base64')}`;
+              var foo = { 
+                'user' : user, 
+                'image' : image, 
+                'source' : source,
+              };
+              imagesDisplay.push(foo);
+              console.log("Pushed")
+            });
+        }
+      });
     });
-  });
+    // setLoading(false);
+  }, [props]);
 
 //img source key
     return (  
-      loading ? (
-        <>
-          <div class="h-screen w-screen bg-lockplus-opacGray overscroll-contain overflow-hidden">
-            <div class="relative flex bg-gray-800 justify-start">
-              <div>
-                <HomeSidebar selectedTab={'users'} />
-              </div>
-              <div>
-                {/* <button onClick={refresh}>RELOAD</button> */}
-                <UsersForm
-                  userlist={usersList}
-                  sessionEmail={email}
-                  userImages={images}
-                  imageDisplay={imagesDisplay}
-                  isLoading={loading}
-                />
-              </div>
+      <>
+        <div class="h-screen w-screen bg-lockplus-opacGray overscroll-contain overflow-hidden">
+          <div class="relative flex bg-gray-800 justify-start">
+            <div>
+              <HomeSidebar selectedTab={'users'} />
+            </div>
+            <div>
+              {/* <button onClick={refresh}>RELOAD</button> */}
+              <UsersForm
+                userlist={usersList}
+                sessionEmail={email}
+                userImages={images}
+                imageDisplay={imagesDisplay}
+                isLoading={loading}
+              />
             </div>
           </div>
-        </>
-      ) : (
-        <div>
-          <Loader
-            type="TailSpin"
-            color="#00BFFF"
-            height={150}
-            width={150}
-            visible={loading} 
-          />
         </div>
-      )
+      </>
     );
 }
 
@@ -86,6 +80,7 @@ export async function getServerSideProps(context) {
   console.log('param' + param);
   var users = [];
   let images = [];
+  var userData = [];
   await axios
     .post('http://localhost:3000/api/getusers', {
       email: param,
