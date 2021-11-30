@@ -8,8 +8,9 @@ function SingleUserPage(props) {
   const user = props.user;
   const header = (user + '').length == 0 ? 'No user selected' : user;
   const images = props.images;
+  const imagesDisplay = props.imageDisplay;
   const email = props.email;
-  let displayImages = [];
+  let displayImages = []
   // const [isUserSelected, setIsUserSelected] = useState(false)
   var isUserSelected = false;
 
@@ -18,14 +19,16 @@ function SingleUserPage(props) {
   } else {
     isUserSelected = false;
   }
-  images.forEach((image) => {
-    if (image.username === props.user) {
-      displayImages.push(image);
+
+  imagesDisplay.forEach((object) => {
+    if (object.user === props.user) {
+      var foo = {
+        'image' : object.image,
+        'source' : object.source
+      }
+      displayImages.push(foo);
     }
   });
-  // } else {
-  //   setIsUserSelected(false)
-  // }
 
   var visibility = displayImages.length > 0
     ? "invisible"
@@ -46,20 +49,22 @@ function SingleUserPage(props) {
         </div>
       </div>
       <div className="-mt-24 rounded-lg flex flex-wrap w-4/5 h-56 overflow-auto bg-lockplus-historyBlue">
-        <div class={`invisible absolute text-2xl font-regular left-96 mt-20 font-lockplus text-gray-700`}>
+        <div class={`${visibility} absolute text-2xl font-regular left-96 mt-20 font-lockplus text-gray-700`}>
           No Photos Found
         </div>
-        <div class={`invisible absolute text-lg font-regular left-72 mt-28 font-lockplus text-gray-700`}>
+        <div class={`${visibility} absolute text-lg font-regular left-72 mt-28 font-lockplus text-gray-700`}>
           Try uploading a photo using the prompt below
         </div>
-        {displayImages.map((image) => (
+        {displayImages.map((obj) => (
           <div className="w-56 h-52 object-fill mx-2 mt-2">
             {
               <UploadedUserImages
-                user={props.user}
+                user={user}
                 isUserSelected={isUserSelected}
-                image={image}
+                image={obj.image}
+                source={obj.source}
                 email={email}
+                isLoading={props.isLoading}
               />
             }
           </div>

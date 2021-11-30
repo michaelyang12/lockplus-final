@@ -11,6 +11,7 @@ import DeleteUserButton from './user_page/user_sidebar/DeleteUserButton';
 
 function UsersForm(props) {
   var usersDisplay = [];
+  var displayImages = [];
   //var users = [];
   const userList = props.userlist;
   const userCount = userList.length;
@@ -59,6 +60,8 @@ function UsersForm(props) {
           user={selectedUser}
           images={images}
           email={email}
+          imageDisplay={props.imageDisplay}
+          isLoading={props.isLoading}
         />
         <AddUserModal
           open={isModalOpen}
@@ -67,7 +70,6 @@ function UsersForm(props) {
           // sessionEmail={props.email}
         />
       </div>
-      <div></div>
     </div>
   );
 }

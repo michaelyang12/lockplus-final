@@ -9,16 +9,17 @@ function UploadedUserImages(props) {
   const router = useRouter();
   var visibility = props.isUserSelected ? 'visible' : 'invisible';
   const image = props.image;
-  const [source, setSource] = useState('');
-  const [apiDone, setApiDone] = useState(false);
+  const loading = props.isLoading;
+  //const [source, setSource] = useState('');
+  const source = props.source;
+  const [apiDone, setApiDone] = useState(true);
   const email = props.email;
-  console.log(image);
+  // console.log(image);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const refreshData = () => {
-    router.replace('/users');
-    setIsRefreshing(true);
+    router.replace(router.asPath);
   };
 
   useEffect(() => {
@@ -27,26 +28,8 @@ function UploadedUserImages(props) {
 
   var visibility = isRefreshing ? 'visible' : 'invisible';
 
-  useEffect(() => {
-    console.log('is this even working?');
-    axios
-      .post(`/api/singlephoto/${image.filename}`, {
-        email: email,
-      })
-      .catch((err) => console.log(err))
-      .then((response) => {
-        console.log('response');
-        console.log(response.data);
-        setSource(
-          `data:${response.data.cType};base64,${Buffer.from(
-            response.data.buffer
-          ).toString('base64')}`
-        );
-        setApiDone(true);
-      });
-  }, []);
-
   function deleteImg(e) {
+    setIsRefreshing(true);
     e.preventDefault();
     console.log('delete image call');
     axios
@@ -62,8 +45,8 @@ function UploadedUserImages(props) {
   }
 
   return (
-    <>
-      {apiDone ? (
+    loading ? (
+      <>
         <div className="h-full w-full relative">
           <div className="h-full w-full">
             <Image
@@ -93,24 +76,24 @@ function UploadedUserImages(props) {
             X
           </button>
         </div>
-      ) : (
-        <div className="h-full w-full relative">
-          <div
-            class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
-            <div class="mt-12 ml-14">
-              Loading...
-              <Loader
-                type="TailSpin"
-                color="#FFFFFF"
-                height={70}
-                width={70}
-                visible={true}
-              />
-            </div>
+      </>
+    ) : (
+      <div className="h-full w-full relative">
+        <div
+          class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
+          <div class="mt-12 ml-14">
+            Loading...
+            <Loader
+              type="TailSpin"
+              color="#FFFFFF"
+              height={70}
+              width={70}
+              visible={true}
+            />
           </div>
         </div>
-      )}
-    </>
+      </div>
+    )
   );
 }
 
