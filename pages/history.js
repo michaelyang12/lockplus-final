@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 function HistoryPage(props) {
-  const [hCount, setHCount] = useState(props.historyCount);
+  const hCount = props.historyCount;
   const email = props.email;
   const router = useRouter();
   const code = props.code;
@@ -23,21 +23,11 @@ function HistoryPage(props) {
   useEffect(() => {
     if (data) {
       if (data.startQuery) {
-        router.refresh(router.asPath);
+        console.log('fuck you');
+        router.replace(router.asPath);
       }
     }
   }, [data]);
-  /*
-  const [selectedHistory, setSelectedHistory] = useState(hCount);
-  const [selectedSource, setSelectedSource] = useState(
-    `data:image/jpeg;base64,${Buffer.from(props.buffer).toString('base64')}`
-  );
-  const [selectedAccepted, setSelectedAccepted] = useState(props.accepted);
-  const [selectedTimestamp, s etSelectedTimestamp] = useState(
-    convertTime(props.tdstamp)
-  );
-  const [selectedUsername, setSelectedUsername] = useState(props.username);
-  const [selectedDate, setSelectedDate] = useState(convertDate(props.tdstamp));*/
   const [selectedUser, setSelectedUser] = useState({});
   return (
     <div class="h-screen w-screen bg-lockplus-opacGray overflox-x-none">
@@ -51,10 +41,9 @@ function HistoryPage(props) {
           </div>
           <div className="w-5/12">
             <HistoryForm
-              hCount={hCount}
+              hCount={props.historyCount}
               email={email}
               setSelectedUser={setSelectedUser}
-              rerun={data != undefined ? data.startQuery : false}
             />
           </div>
           <div className="w-7/12">

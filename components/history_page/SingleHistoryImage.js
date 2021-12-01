@@ -42,36 +42,11 @@ function SingleHistoryImage(props) {
           setDate(displayDate);
           setUsername(response.data.username);
           setAccepted(response.data.accepted);
-          setApiDone(
-            true
-          ); /*
-          if (index === hCount) {
-            props.setSelectedUser({
-              username: username,
-              source: source,
-              index: index,
-              accepted: accepted,
-              time: timestamp,
-              date: date,
-            });
-            //   props.setSelectedUsername(username);
-            //   props.setSelectedDate(date);
-            //   props.setSelectedAccepted(accepted);
-            //   props.setSelectedSource(source);
-            //   props.setSelectedTimestamp(timestamp);
-            //   props.setSelectedHistory(index);
-          }
-        } */
+          setApiDone(true);
         }
       });
   }, []);
   const clickHandler = () => {
-    /*props.setSelectedUsername(username);
-    props.setSelectedDate(date);
-    props.setSelectedAccepted(accepted);
-    props.setSelectedSource(source);
-    props.setSelectedTimestamp(timestamp);
-    props.setSelectedHistory(index);*/
     props.setSelectedUser({
       username: username,
       source: source,

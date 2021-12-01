@@ -26,10 +26,10 @@ export default async (req, res) => {
           (image) => image.filename === filename
         );
         lockToModify.images.splice(deleteIndex, 1);
-        lockToModify.save();
+        await lockToModify.save();
         let update = await UpdateStatus.findOne(data);
         update.user_status = true;
-        update.save();
+        await update.save();
         console.log('newlock');
         console.log(lockToModify);
         res.status(201).json({

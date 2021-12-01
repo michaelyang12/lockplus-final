@@ -16,7 +16,7 @@ const usSchema = new Schema({
   history_status: {
     type: Boolean,
     required: true,
-    default: true,
+    default: false,
   },
   user_status: {
     type: Boolean,
