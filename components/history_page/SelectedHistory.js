@@ -5,13 +5,17 @@ function SelectedHistory(props) {
   return (
     <>
       <div className="h-full w-full bg-lockplus-backgroundBlue text-black p-20">
-        <Image
-          src={props.user.source}
-          alt="Loading"
-          className="object-cover rounded-sm"
-          width={512}
-          height={512}
-        />
+        {props.user.source ? (
+          <Image
+            src={props.user.source}
+            alt="Loading"
+            className="object-cover rounded-sm"
+            width={512}
+            height={512}
+          />
+        ) : (
+          <div className="h-full w-full bg-lockplus-backgroundBlue"></div>
+        )}
       </div>
     </>
   );

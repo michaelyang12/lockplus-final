@@ -1,7 +1,9 @@
 import connectDB from '../../util/database';
 require('../../models/Lock');
+require('../../models/UpdateStatus');
 import mongoose from 'mongoose';
 const Lock = mongoose.model('Lock');
+const UpdateStatus = mongoose.model('UpdateStatus');
 
 export default async (req, res) => {
   const { method } = req;
@@ -17,6 +19,11 @@ export default async (req, res) => {
       console.log(data);
       const newlock = new Lock(data);
       newlock.save();
+      const updateObj = new UpdateStatus({
+        account_email: req.body.email,
+        lockCode: req.body.lockCode,
+      });
+      updateObj.save();
       console.log('newlock');
       console.log(newlock);
       res.status(201).json({

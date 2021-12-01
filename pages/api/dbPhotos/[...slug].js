@@ -4,8 +4,10 @@ import fs from 'fs-extra';
 //import fs from 'fs';
 import connectDB from '../../../util/database';
 require('../../../models/Lock');
+require('../../../models/UpdateStatus');
 import mongoose from 'mongoose';
 const Lock = mongoose.model('Lock');
+const UpdateStatus = mongoose.model('UpdateStatus');
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -64,7 +66,10 @@ photoUploadApi.post(async (req, res) => {
     });
     if (count < 4) {
       lock.images.push(newimg);
-      lock.save();
+      await lock.save();
+      let update = await UpdateStatus.findOne(data);
+      update.user_status = true;
+      update.save();
       res.status(200).json({ success: true, message: 'Photo Uploaded!' });
     } else {
       res.status(200).json({
