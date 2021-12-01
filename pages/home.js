@@ -29,8 +29,11 @@ export default function HomePage(props) {
       </div>
     );
   } else {
-    router.push('/');
-    return <></>;
+    return (
+      <div className="h-screen w-screen bg-lockplus-opacGray text-white font-lockplus">
+        LOCKED OUT. Please sign in or register your lock
+      </div>
+    );
   }
 }
 
