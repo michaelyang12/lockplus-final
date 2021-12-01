@@ -10,20 +10,19 @@ function HistoryForm(props) {
   console.log(hCount);
   const email = props.email;
   const [photosDisplay, setPhotosDisplay] = useState([]);
+  /* if (props.startQuery) {
+  } */
   useEffect(() => {
     let temp = [];
     for (var i = hCount; i >= 0; i--) {
-      if (i >= 0) {
-        temp.push(
-          <SingleHistoryImage
-            index={i}
-            email={email}
-            hCount={hCount}
-            setSelectedHistory={props.setSelectedHistory}
-            setSelectedUser={props.setSelectedUser}
-          />
-        );
-      }
+      temp.push(
+        <SingleHistoryImage
+          index={i}
+          email={email}
+          hCount={hCount}
+          setSelectedUser={props.setSelectedUser}
+        />
+      );
     }
     setPhotosDisplay(temp);
   }, [props]);

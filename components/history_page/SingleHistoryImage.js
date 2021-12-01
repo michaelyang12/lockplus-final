@@ -64,7 +64,7 @@ function SingleHistoryImage(props) {
         } */
         }
       });
-  }, [props]);
+  }, []);
   const clickHandler = () => {
     /*props.setSelectedUsername(username);
     props.setSelectedDate(date);

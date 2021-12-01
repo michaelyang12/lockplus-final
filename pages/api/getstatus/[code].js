@@ -6,7 +6,7 @@ const UpdateStatus = mongoose.model('UpdateStatus');
 export default async (req, res) => {
   const { method } = req;
   const code = req.query.code;
-  console.log(email);
+  //console.log(email);
   console.log('ping');
   await connectDB(); //async connect to the database
   if (method === 'GET') {

@@ -23,7 +23,7 @@ function HistoryPage(props) {
   useEffect(() => {
     if (data) {
       if (data.startQuery) {
-        router.replace(router.asPath);
+        router.refresh(router.asPath);
       }
     }
   }, [data]);
@@ -54,6 +54,7 @@ function HistoryPage(props) {
               hCount={hCount}
               email={email}
               setSelectedUser={setSelectedUser}
+              rerun={data != undefined ? data.startQuery : false}
             />
           </div>
           <div className="w-7/12">
