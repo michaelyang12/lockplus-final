@@ -12,7 +12,7 @@ export default function RegisterForm() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('click');
-    const url = `${process.env.FLUID_URL}/home`; 
+    const url = `/home`;
     axios
       .post('/api/registerlock', {
         lockCode: lockCode,
@@ -30,9 +30,8 @@ export default function RegisterForm() {
       });
   }
 
-  function whatsThis()
-  {
-    alert("A lock code is a unique identifier assigned to a lock.")
+  function whatsThis() {
+    alert('A lock code is a unique identifier assigned to a lock.');
   }
 
   return (
@@ -56,10 +55,7 @@ export default function RegisterForm() {
             required
           />
           <div className="text-xs font-regular font-lockplus text-right text-lockplus-blue pr-4 ml-12">
-            <button
-            onClick={whatsThis}>
-            what's this?
-            </button>
+            <button onClick={whatsThis}>what's this?</button>
           </div>
           <input
             type="text"

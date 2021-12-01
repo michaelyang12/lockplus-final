@@ -10,6 +10,7 @@ import convertDate from '../../util/convertDate';
 function SingleHistoryImage(props) {
   const email = props.email;
   const index = props.index;
+  const hCount = props.hCount;
   const [source, setSource] = useState('');
   const [accepted, setAccepted] = useState(false);
   const [timestamp, setTimestamp] = useState('');
@@ -17,9 +18,10 @@ function SingleHistoryImage(props) {
   const [date, setDate] = useState('');
   const [apiDone, setApiDone] = useState(false);
   useEffect(() => {
+    setApiDone(false);
     console.log('is this even working? history addition');
     axios
-      .post(`/api/singlehistory/${index}`, {
+      .post(`/api/singlehistory/${index >= 0 ? index : 0}`, {
         email: email,
       })
       .catch((err) => console.log(err))
@@ -40,7 +42,9 @@ function SingleHistoryImage(props) {
           setDate(displayDate);
           setUsername(response.data.username);
           setAccepted(response.data.accepted);
-          setApiDone(true);
+          setApiDone(
+            true
+          ); /*
           if (index === hCount) {
             props.setSelectedUser({
               username: username,
@@ -57,9 +61,10 @@ function SingleHistoryImage(props) {
             //   props.setSelectedTimestamp(timestamp);
             //   props.setSelectedHistory(index);
           }
+        } */
         }
       });
-  }, []);
+  }, [props]);
   const clickHandler = () => {
     /*props.setSelectedUsername(username);
     props.setSelectedDate(date);

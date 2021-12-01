@@ -25,13 +25,14 @@ export const PhotosForm = (props) => {
   //const safeUser = encodeURIComponent(props.user);
   console.log('user');
   console.log(safeUser);
-  const [uploadSuccess, setUploadSuccess] = useState('');
+  //const [uploadSuccess, setUploadSuccess] = useState('');
 
   const [isRefreshing, setIsRefreshing] = React.useState(false);
 
+  /*
   function refreshData() {
     router.replace('/users');
-  }
+  }*/
 
   React.useEffect(() => {
     setIsRefreshing(false);
@@ -57,8 +58,9 @@ export const PhotosForm = (props) => {
     console.log(code);
     const apiUrl: string = '/api/dbPhotos/' + code + '/' + safeUser;
     const response: any = await axios.post(apiUrl, formData, config);
-    setUploadSuccess(response.data.message);
-    refreshData();
+    props.setUploadSuccess(response.data.message);
+    () => router.replace(router.asPath);
+    //refreshData();
   };
 
   return (
@@ -83,7 +85,7 @@ export const PhotosForm = (props) => {
       </div>
       <div
         className={`${messageVisibility} absolute -ml-48 -pl-8 mt-6 h-12 whitespace-nowrap text-left text-gray-700 font-lockplus font-md text-red-500 text-md w-full`}>
-        {uploadSuccess}
+        {props.uploadSuccess}
       </div>
     </div>
   );

@@ -12,7 +12,13 @@ function UploadPhotoPrompt(props) {
       className={`text-md text-gray-700 font-regular font-lockplus relative text-left mt-16 mr-8 inline-flex ${visibility}`}>
       Upload photos for this user:
       <div className="h-6 w-24 relative -mt-4">
-        <PhotosForm user={props.user} sessionEmail={props.email} code={code} />
+        <PhotosForm
+          user={props.user}
+          sessionEmail={props.email}
+          code={code}
+          uploadSuccess={props.uploadSuccess}
+          setUploadSuccess={props.setUploadSuccess}
+        />
       </div>
     </div>
   );

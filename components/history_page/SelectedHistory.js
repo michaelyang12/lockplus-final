@@ -14,7 +14,7 @@ function SelectedHistory(props) {
             height={512}
           />
         ) : (
-          <></>
+          <div className="h-full w-full bg-lockplus-backgroundBlue"></div>
         )}
       </div>
     </>

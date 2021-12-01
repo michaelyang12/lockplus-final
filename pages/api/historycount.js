@@ -8,7 +8,7 @@ const UpdateStatus = mongoose.model('UpdateStatus');
 export default async (req, res) => {
   const { method } = req;
   await connectDB(); //async connect to the database
-  console.log('in getusers');
+  console.log('in history count');
   if (method === 'POST') {
     try {
       console.log('marker1');
@@ -19,10 +19,15 @@ export default async (req, res) => {
       console.log(data);
       const lock = await Lock.findOne(data);
       console.log('lock');
-      console.log(lock);
-      const hCount = lock.history.length - 1;
-      const target = lock.history[hCount];
-      console.log(target);
+      //console.log(lock);
+      const code = lock.lockCode;
+      let hCount = lock.history.length - 1;
+      console.log(lock.history.length);
+      if (hCount === -1) {
+        hCount = 0;
+      }
+      //const target = lock.history[hCount];
+      //console.log(target);
       let update = await UpdateStatus.findOne(data);
       update.history_status = false;
       update.save();
@@ -31,13 +36,14 @@ export default async (req, res) => {
         message: 'lock updated',
         statusText: 'user added',
         historyCount: hCount,
+        code: code,
       });
     } catch (error) {
       console.log('error here');
       res.status(400).json({
         success: false,
         message: error.message,
-        statusText: 'error in add user',
+        statusText: 'error in history',
       });
     }
   } else {

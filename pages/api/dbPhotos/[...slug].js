@@ -66,7 +66,7 @@ photoUploadApi.post(async (req, res) => {
     });
     if (count < 4) {
       lock.images.push(newimg);
-      lock.save();
+      await lock.save();
       let update = await UpdateStatus.findOne(data);
       update.user_status = true;
       update.save();

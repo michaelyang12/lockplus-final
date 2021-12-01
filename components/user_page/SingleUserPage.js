@@ -13,6 +13,7 @@ function SingleUserPage(props) {
   const code = props.code;
   //let photoCount;
   const [displayImages, setDisplayImages] = useState([]);
+  const [uploadSuccess, setUploadSuccess] = useState('');
   const safeUser = slugify(user ?? '', {
     remove: /[^\w_\-]/g,
   });
@@ -26,6 +27,7 @@ function SingleUserPage(props) {
     isUserSelected = false;
   }
   useEffect(() => {
+    setUploadSuccess('');
     setDisplayImages([]);
     console.log('safe user');
     console.log(safeUser);
@@ -89,6 +91,8 @@ function SingleUserPage(props) {
           isUserSelected={isUserSelected}
           email={email}
           code={code}
+          uploadSuccess={uploadSuccess}
+          setUploadSuccess={setUploadSuccess}
         />
       </div>
     </div>

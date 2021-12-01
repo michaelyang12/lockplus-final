@@ -5,18 +5,19 @@ const UpdateStatus = mongoose.model('UpdateStatus');
 
 export default async (req, res) => {
   const { method } = req;
-  const email = req.query.email;
+  const code = req.query.code;
   console.log(email);
   console.log('ping');
   await connectDB(); //async connect to the database
   if (method === 'GET') {
     try {
       const data = {
-        account_email: email,
+        lockCode: code,
       };
       let update = await UpdateStatus.findOne(data);
       let retBool = false;
       if (update.history_status === true) {
+        console.log('ping true');
         retBool = true;
         update.history_status = false;
         update.save();
