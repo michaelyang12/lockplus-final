@@ -45,7 +45,6 @@ function UploadedUserImages(props) {
   }
 
   return (
-    loading ? (
       <>
         <div className="h-full w-full relative">
           <div className="h-full w-full">
@@ -77,23 +76,23 @@ function UploadedUserImages(props) {
           </button>
         </div>
       </>
-    ) : (
-      <div className="h-full w-full relative">
-        <div
-          class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
-          <div class="mt-12 ml-14">
-            Loading...
-            <Loader
-              type="TailSpin"
-              color="#FFFFFF"
-              height={70}
-              width={70}
-              visible={true}
-            />
-          </div>
-        </div>
-      </div>
-    )
+    // ) : (
+    //   <div className="h-full w-full relative">
+    //     <div
+    //       class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
+    //       <div class="mt-12 ml-14">
+    //         Loading...
+    //         <Loader
+    //           type="TailSpin"
+    //           color="#FFFFFF"
+    //           height={70}
+    //           width={70}
+    //           visible={true}
+    //         />
+    //       </div>
+    //     </div>
+    //   </div>
+    // )
   );
 }
 
