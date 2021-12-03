@@ -24,8 +24,8 @@ export default async (req, res) => {
       }
       res.status(201).json({
         success: true,
-        message: 'lock updated',
-        statusText: 'user added',
+        message: 'pinged',
+        statusText: 'pinged',
         startQuery: retBool,
       });
     } catch (error) {

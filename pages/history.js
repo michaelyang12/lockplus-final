@@ -1,9 +1,10 @@
 import HomeSidebar from '../components/HomeSidebar';
 import LoginForm from '../components/LoginForm';
 import HistoryForm from '../components/HistoryForm';
+import SingleHistoryImage from '../components/history_page/SingleHistoryImage';
 import SelectedHistory from '../components/history_page/SelectedHistory';
 import { getSession } from 'next-auth/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import convertTime from '../util/convertTime';
 import convertDate from '../util/convertDate';
 import axios from 'axios';
@@ -13,22 +14,44 @@ import { useRouter } from 'next/router';
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 function HistoryPage(props) {
-  const hCount = props.historyCount;
   const email = props.email;
   const router = useRouter();
   const code = props.code;
+  let i = props.hCount;
+  const [selectedUser, setSelectedUser] = useState({});
+  const [displayImages, setDisplayImages] = useState([]);
   const { data, error } = useSWR(`/api/getstatus/${code}`, fetcher, {
     refreshInterval: 10000,
   });
   useEffect(() => {
     if (data) {
+      console.log('data');
+      console.log(data);
       if (data.startQuery) {
         console.log('fuck you');
         router.replace(router.asPath);
       }
     }
   }, [data]);
-  const [selectedUser, setSelectedUser] = useState({});
+  useEffect(() => {
+    console.log('start loop');
+    setDisplayImages([]);
+    let temp = [];
+    for (i = props.hCount; i >= 0; i--) {
+      console.log('i ' + i);
+      temp.push(
+        <SingleHistoryImage
+          index={i}
+          email={email}
+          hCount={props.hCount}
+          setSelectedUser={setSelectedUser}
+        />
+      );
+    }
+    setDisplayImages(temp);
+    console.log('dispImages');
+    console.log(displayImages[0]);
+  }, [props]);
   return (
     <div class="h-screen w-screen bg-lockplus-opacGray overflox-x-none">
       <div class="relative flex bg-gray-800 justify-start">
@@ -41,9 +64,11 @@ function HistoryPage(props) {
           </div>
           <div className="w-5/12">
             <HistoryForm
-              hCount={props.historyCount}
+              hCount={props.hCount}
               email={email}
               setSelectedUser={setSelectedUser}
+              displayImages={displayImages}
+              setDisplayImages={setDisplayImages}
             />
           </div>
           <div className="w-7/12">
@@ -60,7 +85,6 @@ export default HistoryPage;
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   let param = 'nulled';
-  //let buffer, accepted, tdstamp, username;
   if (session) {
     param = session.user.email;
   }
@@ -83,17 +107,13 @@ export async function getServerSideProps(context) {
         if (response.data) {
           hCount = response.data.historyCount;
           code = response.data.code;
-          // buffer = response.data.buffer;
-          // accepted = response.data.accepted;
-          // tdstamp = response.data.timestamp;
-          // username = response.data.username;
           console.log('success');
         }
       }
     });
   return {
     props: {
-      historyCount: hCount,
+      hCount: hCount,
       email: param,
       code: code,
       /*buffer: buffer,

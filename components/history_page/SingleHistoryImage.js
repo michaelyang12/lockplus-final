@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -9,7 +9,7 @@ import convertDate from '../../util/convertDate';
 
 function SingleHistoryImage(props) {
   const email = props.email;
-  const index = props.index;
+  let index = props.index;
   const hCount = props.hCount;
   const [source, setSource] = useState('');
   const [accepted, setAccepted] = useState(false);
@@ -17,18 +17,19 @@ function SingleHistoryImage(props) {
   const [username, setUsername] = useState('');
   const [date, setDate] = useState('');
   const [apiDone, setApiDone] = useState(false);
-  useEffect(() => {
+  useMemo(() => {
     setApiDone(false);
-    console.log('is this even working? history addition');
+    console.log('single history img');
+    console.log(index);
     axios
-      .post(`/api/singlehistory/${index >= 0 ? index : 0}`, {
+      .post(`/api/singlehistory/${index}`, {
         email: email,
       })
       .catch((err) => console.log(err))
       .then((response) => {
-        console.log('response');
+        //console.log('response');
         if (response) {
-          console.log(response.data);
+          //console.log(response.data);
           //normally will be response.data.cType
           setSource(
             `data:image/jpeg;base64,${Buffer.from(
@@ -45,7 +46,7 @@ function SingleHistoryImage(props) {
           setApiDone(true);
         }
       });
-  }, []);
+  }, [props.index]);
   const clickHandler = () => {
     props.setSelectedUser({
       username: username,
@@ -85,7 +86,8 @@ function SingleHistoryImage(props) {
         </button>
       ) : (
         //MODIFY APPEARANCE
-        <div class={`w-32 h-32 border border-lockplus-textGray ml-4 mb-4 mt-4`}>
+        <div
+          class={`w-32 h-32 relative border border-lockplus-textGray ml-4 mb-4 mt-4`}>
           <div
             class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
             <div class="mt-12 ml-14">

@@ -2,17 +2,18 @@ import { createRouteLoader } from 'next/dist/client/route-loader';
 import Head from 'next/head';
 //import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
+import { useSession, getSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
-export default function Home() {
+export default function Index(props) {
   const router = useRouter();
-  const { data: session, status } = useSession();
-  const loading = status === 'loading';
-  if (loading) {
-    return <div className="h-screen w-screen bg-black"></div>;
-  } else if (session) {
-    router.push('/home');
-  } else {
+  const session = props.session;
+  useEffect(() => {
+    if (session) {
+      router.push('/home');
+    }
+  }, [props]);
+  if (!session) {
     return (
       <div className="h-screen w-screen bg-black">
         <div className="absolute top-4 right-2 content-right block h-24 w-34">
@@ -60,5 +61,16 @@ export default function Home() {
         </div>
       </div>
     );
+  } else {
+    return <></>;
   }
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  return {
+    props: {
+      session: session,
+    },
+  };
 }

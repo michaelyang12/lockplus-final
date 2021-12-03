@@ -7,11 +7,13 @@ import { useEffect } from 'react';
 function HistoryForm(props) {
   //temporary array for testing
   const email = props.email;
-  const [photosDisplay, setPhotosDisplay] = useState([]);
+  //const [photosDisplay, setPhotosDisplay] = useState([]);
+  /*
+  let i;
+  let temp = [];
   useEffect(() => {
-    setPhotosDisplay([]);
-    let temp = [];
-    for (var i = 0; i <= props.hCount; i--) {
+    props.setPhotosDisplay([]);
+    for (var i = props.hCount; i >= 0; i--) {
       temp.push(
         <SingleHistoryImage
           index={i}
@@ -21,14 +23,14 @@ function HistoryForm(props) {
         />
       );
     }
-    setPhotosDisplay(temp.reverse());
-  }, [props.hCount]);
+    setPhotosDisplay(temp);
+  }, [props.hCount]); */
 
   return (
     <div class="relative w-1/3 container h-screen w-full bg-lockplus-backgroundBlue text-lockplus-textGray overflow-y-auto border-r border-gray-500">
       <div className="flex">
         <div class="relative justify-between rounded-lg container p-8 h-5/6 w-auto">
-          {photosDisplay.map((img) => (
+          {props.displayImages.map((img) => (
             <div>{img}</div>
           ))}
         </div>

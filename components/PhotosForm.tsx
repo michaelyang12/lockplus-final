@@ -59,7 +59,7 @@ export const PhotosForm = (props) => {
     const apiUrl: string = '/api/dbPhotos/' + code + '/' + safeUser;
     const response: any = await axios.post(apiUrl, formData, config);
     props.setUploadSuccess(response.data.message);
-    () => router.replace(router.asPath);
+    router.replace(router.asPath);
     //refreshData();
   };
 
