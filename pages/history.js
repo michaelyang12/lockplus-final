@@ -23,6 +23,8 @@ function HistoryPage(props) {
   const { data, error } = useSWR(`/api/getstatus/${code}`, fetcher, {
     refreshInterval: 10000,
   });
+  console.log('hCount');
+  console.log(props.hCount);
   useEffect(() => {
     if (data) {
       console.log('data');
@@ -35,11 +37,11 @@ function HistoryPage(props) {
   }, [data]);
   useEffect(() => {
     console.log('start loop');
-    setDisplayImages([]);
-    let temp = [];
-    for (i = props.hCount; i >= 0; i--) {
+    //setDisplayImages([]);
+    let temp = displayImages;
+    for (i = temp.length; i < props.hCount; i++) {
       console.log('i ' + i);
-      temp.push(
+      temp.unshift(
         <SingleHistoryImage
           index={i}
           email={email}
@@ -47,10 +49,11 @@ function HistoryPage(props) {
           setSelectedUser={setSelectedUser}
         />
       );
+      //setDisplayImages((displayImages) => [temp, ...displayImages]);
     }
     setDisplayImages(temp);
     console.log('dispImages');
-    console.log(displayImages[0]);
+    console.log(displayImages.length);
   }, [props]);
   return (
     <div class="h-screen w-screen bg-lockplus-opacGray overflox-x-none">

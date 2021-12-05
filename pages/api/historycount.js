@@ -21,7 +21,7 @@ export default async (req, res) => {
       console.log('lock');
       //console.log(lock);
       const code = lock.lockCode;
-      let hCount = lock.history.length - 1;
+      const hCount = lock.history.length;
       console.log(lock.history.length);
       let update = await UpdateStatus.findOne(data);
       update.history_status = false;

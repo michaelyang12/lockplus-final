@@ -1,6 +1,6 @@
 import HomeSidebar from '../components/HomeSidebar';
 import { getSession } from 'next-auth/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import HomeForm from '../components/HomeForm';
 
@@ -9,6 +9,10 @@ export default function HomePage(props) {
   //const { data: session, status } = useSession();
   //const loading = status === 'loading';
   const [sessionEmail, setSessionEmail] = useState(props.email);
+  useEffect(() => {
+    router.prefetch('/users');
+    router.prefetch('/history');
+  }, []);
   /*if (session && sessionEmail === 'null') {
     setSessionEmail(session.user.email);
   }
