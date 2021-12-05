@@ -29,6 +29,7 @@ function SingleUserPage(props) {
   useEffect(() => {
     setUploadSuccess('');
     setDisplayImages([]);
+    let temp = displayImages;
     console.log('safe user');
     console.log(safeUser);
     images.forEach((image) => {
@@ -40,7 +41,7 @@ function SingleUserPage(props) {
       }
     });
     //photoCount = displayImages.length;
-  }, [props.user]);
+  }, [props]);
 
   // } else {
   //   setIsUserSelected(false)
