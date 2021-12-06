@@ -58,9 +58,6 @@ function HistoryPage(props) {
           <HomeSidebar selectedTab={'history'} />
         </div>
         <div class="flex relative justify-start w-full">
-          <div class="absolute left-0 w-auto text-left text-xl h-18 pl-8 pt-6 pb-4 font-light z-30">
-            Lock Use History
-          </div>
           <div className="w-5/12">
             <HistoryForm
               hCount={props.hCount}

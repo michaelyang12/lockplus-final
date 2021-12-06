@@ -17,6 +17,9 @@ function SingleHistoryImage(props) {
   const [username, setUsername] = useState('');
   const [date, setDate] = useState('');
   const [apiDone, setApiDone] = useState(false);
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   useMemo(() => {
     setApiDone(false);
     console.log('single history img');
@@ -27,10 +30,7 @@ function SingleHistoryImage(props) {
       })
       .catch((err) => console.log(err))
       .then((response) => {
-        //console.log('response');
         if (response) {
-          //console.log(response.data);
-          //normally will be response.data.cType
           setSource(
             `data:image/jpeg;base64,${Buffer.from(
               response.data.buffer
@@ -73,7 +73,7 @@ function SingleHistoryImage(props) {
             />
           </div>
           <p class="font-lockplus font-light text-sm ml-4 mt-4">
-            <span>{username}</span> accessed at
+            <span>{capitalizeFirstLetter(username)}</span> accessed at
             <span class="font-bold"> {timestamp}</span> and was
             <span class={accepted ? 'text-green-500' : 'text-red-500'}>
               {accepted ? ' accepted' : ' rejected'}
@@ -86,11 +86,10 @@ function SingleHistoryImage(props) {
         </button>
       ) : (
         //MODIFY APPEARANCE
-        <div
-          class={`w-32 h-32 relative border border-lockplus-textGray ml-4 mb-4 mt-4`}>
+        <div class={`w-96 h-48 ml-4 mb-4 mt-4`}>
           <div
-            class={`visible absolute -top-0 h-48 w-48 opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
-            <div class="mt-12 ml-14">
+            class={`visible h-full w-full opacity-40 bg-gray-800 font-md text-white font-regular font-lockplus`}>
+            <div class="ml-14 pt-8">
               Loading...
               <Loader
                 type="TailSpin"

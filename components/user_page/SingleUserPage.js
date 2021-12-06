@@ -73,7 +73,7 @@ function SingleUserPage(props) {
           Try uploading a photo using the prompt below
         </div>
         {displayImages.map((image) => (
-          <div className="w-56 h-52 object-fill mx-2 mt-2">
+          <div className="w-56 h-52 object-fill mx-2 mt-2 py-2 ">
             {
               <UploadedUserImages
                 user={props.user}
