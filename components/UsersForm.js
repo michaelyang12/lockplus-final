@@ -47,7 +47,7 @@ function UsersForm(props) {
   return (
     <div class="relative flex justify-start">
       <div>
-        <UsersFormSidebar>
+        <UsersFormSidebar setSelectedUser={setSelectedUser}>
           {usersDisplay.map((user) => (
             <div>{user}</div>
           ))}

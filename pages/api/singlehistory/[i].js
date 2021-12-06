@@ -13,8 +13,6 @@ export default async (req, res) => {
         account_email: req.body.email,
       };
       const history = await Lock.findOne(data, 'history');
-      console.log('history sped up');
-      console.log(history);
       const target = history.history[index];
       res.status(201).json({
         success: true,

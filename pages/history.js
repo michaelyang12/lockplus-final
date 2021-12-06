@@ -20,17 +20,13 @@ function HistoryPage(props) {
   let i = props.hCount;
   const [selectedUser, setSelectedUser] = useState({});
   const [displayImages, setDisplayImages] = useState([]);
-  const { data, error } = useSWR(`/api/getstatus/${code}`, fetcher, {
+  let { data, error } = useSWR(`/api/getstatus/${code}`, fetcher, {
     refreshInterval: 10000,
   });
-  console.log('hCount');
-  console.log(props.hCount);
   useEffect(() => {
+    console.log('effect triggering');
     if (data) {
-      console.log('data');
-      console.log(data);
       if (data.startQuery) {
-        console.log('fuck you');
         router.replace(router.asPath);
       }
     }

@@ -44,6 +44,7 @@ function DeleteUserButton(props) {
       .then((response) => {
         console.log('*****' + response.status + '******');
         console.log(user + ' removed!');
+        props.setSelectedUser('');
         refreshData();
       });
   };
