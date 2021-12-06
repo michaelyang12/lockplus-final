@@ -21,7 +21,7 @@ function HistoryPage(props) {
   const [selectedUser, setSelectedUser] = useState({});
   const [displayImages, setDisplayImages] = useState([]);
   let { data, error } = useSWR(`/api/getstatus/${code}`, fetcher, {
-    refreshInterval: 10000,
+    refreshInterval: 5000,
   });
   useEffect(() => {
     console.log('effect triggering');
