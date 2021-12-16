@@ -8,4 +8,4 @@ In addition, every unlock attempt (noted by each raspberry pi button press) take
 
 ## Environment variables
 Relevant variable information in PROCESSENV.txt file. 
-Create a file .env.local with all the above information
+Create a file .env.local with all the information
